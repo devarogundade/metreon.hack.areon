@@ -1,0 +1,400 @@
+{
+  "contractName": "IMessageReceiver",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "metreonPayMaster",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "bytes32",
+              "name": "messageId",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "fromChainId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "sender",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes",
+              "name": "payload",
+              "type": "bytes"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "tokenId",
+                  "type": "address"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "amount",
+                  "type": "uint256"
+                }
+              ],
+              "internalType": "struct Data.Token[]",
+              "name": "tokens",
+              "type": "tuple[]"
+            },
+            {
+              "internalType": "enum Data.PayMaster",
+              "name": "payMaster",
+              "type": "uint8"
+            }
+          ],
+          "internalType": "struct Data.IncomingMessage",
+          "name": "message",
+          "type": "tuple"
+        },
+        {
+          "internalType": "address",
+          "name": "tokenPool",
+          "type": "address"
+        }
+      ],
+      "name": "metreonReceive",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getMetreon",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.20+commit.a1b79de6\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"getMetreon\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"metreonPayMaster\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"bytes32\",\"name\":\"messageId\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"fromChainId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"payload\",\"type\":\"bytes\"},{\"components\":[{\"internalType\":\"address\",\"name\":\"tokenId\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"internalType\":\"struct Data.Token[]\",\"name\":\"tokens\",\"type\":\"tuple[]\"},{\"internalType\":\"enum Data.PayMaster\",\"name\":\"payMaster\",\"type\":\"uint8\"}],\"internalType\":\"struct Data.IncomingMessage\",\"name\":\"message\",\"type\":\"tuple\"},{\"internalType\":\"address\",\"name\":\"tokenPool\",\"type\":\"address\"}],\"name\":\"metreonReceive\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/interfaces/IMessageReceiver.sol\":\"IMessageReceiver\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[],\"viaIR\":true},\"sources\":{\"project:/contracts/interfaces/IMessageReceiver.sol\":{\"keccak256\":\"0xda5ad6a88fa5279417e1114fa5134396e17d95c710697f0ac752e4f170352157\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://b9e6dea2768e7f71933fc93850a1be9f02abd7d152f0a9250cacd78bce31f531\",\"dweb:/ipfs/QmfQeuHvP32LNXwZgXikNei8GZYH6rbXWe4apdER5mnXgV\"]},\"project:/contracts/libraries/Data.sol\":{\"keccak256\":\"0xa0e8f82cce57f5cf3f132aa5cdef1f321bf80a2ff426d34cdde7f377873689bf\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://1f59c34d24a30d5784f9ca3c8c93726e724dc7332dda0a759f2d9a4bd671f861\",\"dweb:/ipfs/QmXQ6zNZBHAdwLL7wWfKotKBdfVuviwqb4gN1FLQDW5oEN\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.17;\r\n\r\nimport {Data} from \"../libraries/Data.sol\";\r\n\r\ninterface IMessageReceiver {\r\n    function metreonPayMaster() external view returns (address);\r\n\r\n    function metreonReceive(\r\n        Data.IncomingMessage calldata message,\r\n        address tokenPool\r\n    ) external;\r\n\r\n    function getMetreon() external view returns (address);\r\n}\r\n",
+  "sourcePath": "C:\\Users\\DELL\\Documents\\metreon.hack.areon\\smart-contracts\\contracts\\interfaces\\IMessageReceiver.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/interfaces/IMessageReceiver.sol",
+    "exportedSymbols": {
+      "Data": [
+        1314
+      ],
+      "IMessageReceiver": [
+        1059
+      ]
+    },
+    "id": 1060,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1038,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".17"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "33:24:7"
+      },
+      {
+        "absolutePath": "project:/contracts/libraries/Data.sol",
+        "file": "../libraries/Data.sol",
+        "id": 1040,
+        "nameLocation": "-1:-1:-1",
+        "nodeType": "ImportDirective",
+        "scope": 1060,
+        "sourceUnit": 1315,
+        "src": "61:43:7",
+        "symbolAliases": [
+          {
+            "foreign": {
+              "id": 1039,
+              "name": "Data",
+              "nodeType": "Identifier",
+              "overloadedDeclarations": [],
+              "referencedDeclaration": 1314,
+              "src": "69:4:7",
+              "typeDescriptions": {}
+            },
+            "nameLocation": "-1:-1:-1"
+          }
+        ],
+        "unitAlias": ""
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "IMessageReceiver",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "id": 1059,
+        "linearizedBaseContracts": [
+          1059
+        ],
+        "name": "IMessageReceiver",
+        "nameLocation": "118:16:7",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "functionSelector": "5c72a569",
+            "id": 1045,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "metreonPayMaster",
+            "nameLocation": "151:16:7",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1041,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "167:2:7"
+            },
+            "returnParameters": {
+              "id": 1044,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1043,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1045,
+                  "src": "193:7:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1042,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "193:7:7",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "192:9:7"
+            },
+            "scope": 1059,
+            "src": "142:60:7",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "functionSelector": "e6f234f6",
+            "id": 1053,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "metreonReceive",
+            "nameLocation": "219:14:7",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1051,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1048,
+                  "mutability": "mutable",
+                  "name": "message",
+                  "nameLocation": "274:7:7",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1053,
+                  "src": "244:37:7",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_IncomingMessage_$1299_calldata_ptr",
+                    "typeString": "struct Data.IncomingMessage"
+                  },
+                  "typeName": {
+                    "id": 1047,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 1046,
+                      "name": "Data.IncomingMessage",
+                      "nameLocations": [
+                        "244:4:7",
+                        "249:15:7"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 1299,
+                      "src": "244:20:7"
+                    },
+                    "referencedDeclaration": 1299,
+                    "src": "244:20:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_IncomingMessage_$1299_storage_ptr",
+                      "typeString": "struct Data.IncomingMessage"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1050,
+                  "mutability": "mutable",
+                  "name": "tokenPool",
+                  "nameLocation": "300:9:7",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1053,
+                  "src": "292:17:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1049,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "292:7:7",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "233:83:7"
+            },
+            "returnParameters": {
+              "id": 1052,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "325:0:7"
+            },
+            "scope": 1059,
+            "src": "210:116:7",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "functionSelector": "737fb66b",
+            "id": 1058,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getMetreon",
+            "nameLocation": "343:10:7",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1054,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "353:2:7"
+            },
+            "returnParameters": {
+              "id": 1057,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1056,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1058,
+                  "src": "379:7:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1055,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "379:7:7",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "378:9:7"
+            },
+            "scope": 1059,
+            "src": "334:54:7",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 1060,
+        "src": "108:283:7",
+        "usedErrors": [],
+        "usedEvents": []
+      }
+    ],
+    "src": "33:360:7"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.20+commit.a1b79de6.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.11",
+  "updatedAt": "2024-01-13T09:27:03.479Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}
