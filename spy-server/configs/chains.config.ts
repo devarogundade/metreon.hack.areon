@@ -4,10 +4,10 @@ const Config = {
     BnbTestnet: 97,
     AreonTestnet: 462,
     metreonIds: {
-        11155111: '0x6b7f336e63428eE87be73c9DB3Ad9eFBF0DAd7e8',
-        80001: '0x71782B79822001b88E717b991C95535a836391C2',
-        97: '0xC734ca06CDAe04A3E0A78255DFbabB81665aa508',
-        462: '0x710cCf9304597c75D879fF315BF093078ba30D9c'
+        11155111: '',
+        80001: '0x626e574E9AE8860fF123458d4a38f1B9844FE9C1',
+        97: '0x626e574E9AE8860fF123458d4a38f1B9844FE9C1',
+        462: '0xC7Cd3F55b10b6385B9230BC4e8BF4f38010C13c6'
     },
     rpcs: {
         11155111: 'https://rpc.notadegen.com/eth/sepolia',
@@ -19,10 +19,10 @@ const Config = {
         462: 'wss://testnet-ws.areon.network'
     },
     tokenPoolIds: {
-        11155111: '0x6b7f336e63428eE87be73c9DB3Ad9eFBF0DAd7e8',
-        80001: '0x71782B79822001b88E717b991C95535a836391C2',
-        97: '0xC734ca06CDAe04A3E0A78255DFbabB81665aa508',
-        462: '0x710cCf9304597c75D879fF315BF093078ba30D9c'
+        11155111: '',
+        80001: '0xEc61052fDaaE48fDF494e76B618F8072EAeC4a2A',
+        97: '0xEc61052fDaaE48fDF494e76B618F8072EAeC4a2A',
+        462: '0x0B15EA993C83e1Aa177eBFe7EbD2F5253e3859A5'
     }
 };
 
