@@ -10,6 +10,10 @@ class Route {
     init(app: Express) {
         router.post('/moralis/events', async (req: Request, res: Response) => {
             const messages = stream.init(req);
+
+            console.log('Moralis events: ', messages);
+
+
             if (!messages) {
                 return res.send('No message was passed');
             }
@@ -18,15 +22,16 @@ class Route {
             res.status(result.status).send(result);
         });
 
-        router.post('/messages', async (req: Request, res: Response) => {
-            const { take, skip } = req.query;
+        router.get('/messages', async (req: Request, res: Response) => {
+            const { page = 1, take = 10 } = req.query;
+
             const query = req.body;
 
-            const result = await controller.allMessages(Number(take), Number(skip), query);
+            const result = await controller.allMessages(Number(page), Number(take), query);
             res.status(result.status).send(result);
         });
 
-        router.post('/messages/:hash', async (req: Request, res: Response) => {
+        router.get('/messages/:hash', async (req: Request, res: Response) => {
             const { hash } = req.params;
 
             const result = await controller.message(hash);

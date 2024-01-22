@@ -21,21 +21,25 @@ const status_1 = require("../models/status");
 const controller = new controllers_1.Controller();
 const Metreon = require('../abis/Metreon.json');
 class Index {
+    constructor() { }
     startListening() {
         const job = new cron_1.CronJob('*/10 * * * * *', function () {
             return __awaiter(this, void 0, void 0, function* () {
                 try {
                     const data = fs_1.default.readFileSync('events/config.index.json', "utf-8");
                     const json = JSON.parse(data);
-                    const fromBlock = json.fromBlocks[462];
+                    let fromBlock = json.fromBlocks[462];
                     console.log(`Indexer: Running Job from ${fromBlock}`);
                     const web3 = new web3_1.default(chains_config_1.default.rpcs[462]);
-                    const w3link = new web3.eth.Contract(Metreon.abi, chains_config_1.default.metreonIds[462]);
+                    const metreon = new web3.eth.Contract(Metreon.abi, chains_config_1.default.metreonIds[462]);
                     const latestBlock = yield web3.eth.getBlockNumber();
                     console.log('Indexer: Lastest Block ', latestBlock);
                     if (fromBlock == latestBlock)
                         return;
-                    w3link.getPastEvents('SendMessage', { filter: {}, fromBlock: fromBlock, toBlock: 'latest' }, function (error, events) {
+                    if (fromBlock == null) {
+                        fromBlock = latestBlock;
+                    }
+                    metreon.getPastEvents('SendMessage', { filter: {}, fromBlock: fromBlock, toBlock: 'latest' }, function (error, events) {
                         console.log('Indexer: Error ', error);
                         console.log('Indexer: Events ', events);
                         if (error) {

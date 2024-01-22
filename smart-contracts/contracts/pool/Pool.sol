@@ -8,18 +8,18 @@ import {Context} from "@openzeppelin/contracts/utils/Context.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 abstract contract Pool is IPool, Context, Ownable {
-    constructor() Ownable(_msgSender()) {}
+    constructor() Ownable() {}
 
     function withdrawTo(
         address to,
-        Data.Token[] memory tokens
+        Data.IncomingMessage calldata message
     ) external virtual override onlyOwner {
-        _withdrawTo(to, tokens);
+        _withdrawTo(to, message);
     }
 
     function _withdrawTo(
         address to,
-        Data.Token[] memory tokens
+        Data.IncomingMessage calldata message
     ) internal virtual;
 
     error InvalidRouter(address router);

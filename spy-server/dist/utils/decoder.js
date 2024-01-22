@@ -12,7 +12,7 @@ class Decoder {
     }
     dispatchFormat(event) {
         if (event == 'sendMessage') {
-            return ['bytes32', 'address', 'address', 'uint256', 'uint256', 'bytes', 'bytes32'];
+            return ['bytes32', 'uint256', 'address', 'uint256', 'uint256', 'address', 'address', '(address,uint256)[]', 'uint8', 'bytes'];
         }
         return null;
     }

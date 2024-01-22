@@ -12,15 +12,6 @@ module.exports = {
   ],
 
   networks: {
-    sepolia: {
-      provider: () => new HDWalletProvider(MNEMONIC, 'https://ethereum-sepolia.blockpi.network/v1/rpc/public'),
-      network_id: 11155111,
-      confirmations: 2,
-      timeoutBlocks: 9999999,
-      skipDryRun: true,
-      networkCheckTimeout: 999999999
-    },
-
     bscTestnet: {
       provider: () => new HDWalletProvider(MNEMONIC, 'https://bsc-testnet.public.blastapi.io'),
       network_id: 97,
@@ -31,7 +22,7 @@ module.exports = {
     },
 
     mumbai: {
-      provider: () => new HDWalletProvider(MNEMONIC, 'https://rpc.ankr.com/polygon_mumbai'),
+      provider: () => new HDWalletProvider(MNEMONIC, 'https://polygon-testnet.public.blastapi.io'),
       network_id: 80001,
       confirmations: 2,
       timeoutBlocks: 9999999,
@@ -57,7 +48,7 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
-      version: "0.8.20", // Fetch exact version from solc-bin (default: truffle's version)
+      version: "0.8.17", // Fetch exact version from solc-bin (default: truffle's version)
       settings: { // See the solidity docs for advice about optimization and evmVersion
         optimizer: {
           enabled: true,

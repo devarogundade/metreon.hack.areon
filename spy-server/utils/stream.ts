@@ -25,7 +25,13 @@ class Stream {
                 const data = decoder.decodeLog(format, log.data);
 
                 // object is invalid
-                const message = decoder.toDisptachModel(event, data, hash, webhook.chainId);
+                const message = decoder.toDisptachModel(
+                    event,
+                    data,
+                    hash,
+                    Number(webhook.chainId) as 80001 | 97 | 462
+                );
+
                 if (message == null || typeof message === 'undefined') continue;
 
                 messages.push(message);

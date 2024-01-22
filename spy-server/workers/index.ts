@@ -1,3 +1,4 @@
+import { URL } from 'node:url';
 import { Status } from '../models/status';
 import { Message } from './../models/message';
 import { parentPort, workerData } from "worker_threads";
@@ -5,16 +6,37 @@ import MessageSchema from '../database/schemas';
 import Config from '../configs/chains.config';
 import env from 'dotenv';
 import Web3 from 'web3';
+import mongoose from 'mongoose';
+import DbConfig from '../configs/db.config';
 
 env.config();
 
 const MetreonReceiver = require('../abis/MetreonReceiver.json');
 
 // Signing Key and Address
-const handlerEvmKey = process.env.HANDLER_EVM_PRIVATE_KEY!!;
+const handlerEvmKey = process.env.EVM_PRIVATE_KEY!!;
+
+enum PayMaster {
+    SENDER,
+    METREON_PAY
+}
+
+interface Token {
+    tokenId: string;
+    amount: string;
+}
+
+interface IncomingMessage {
+    messageId: string;
+    fromChainId: number;
+    sender: string;
+    payload: string;
+    tokens: Token[];
+    payMaster: PayMaster;
+}
 
 class Worker {
-    async init(message: Message) {
+    async initializeTrx(message: Message) {
         try {
             await this.recordMessage(message);
 
@@ -23,7 +45,7 @@ class Worker {
             await this.recordMessage(signedMessage);
         } catch (error) {
             console.log(error);
-            message.failedTimestamp = (Date.now() / 1000);
+            message.failedTimestamp = Math.ceil((Date.now() / 1000));
             message.status = Status.FAILED;
 
             this.recordMessage(message);
@@ -33,21 +55,27 @@ class Worker {
     private async signTransaction(message: Message): Promise<Message> {
         const web3 = new Web3(Config.rpcs[message.toChainId]);
 
-        const metreonReceiver = new web3.eth.Contract(MetreonReceiver.abi, message.receiver);
+        console.log('handlerEvmKey: ', handlerEvmKey);
 
         const signer = web3.eth.accounts.privateKeyToAccount(handlerEvmKey);
         web3.eth.accounts.wallet.add(signer);
 
-        const incomingMessage = {
+        console.log(`3`);
+
+        const incomingMessage: IncomingMessage = {
             messageId: message.messageId,
             fromChainId: message.fromChainId,
             sender: message.sender,
             payload: message.payload,
-            tokens: message.tokens,
+            tokens: message.tokens as unknown as Token[],
             payMaster: message.payMaster
         };
 
+        console.log(incomingMessage);
+
         const tokenPool = Config.tokenPoolIds[message.toChainId];
+
+        const metreonReceiver = new web3.eth.Contract(MetreonReceiver.abi, message.receiver);
 
         const gas = await metreonReceiver.methods.metreonReceive(
             incomingMessage, tokenPool
@@ -66,12 +94,14 @@ class Worker {
         });
 
         message.toTrxHash = transactionHash;
-        message.deliveredTimestamp = (Date.now() / 1000);
+        message.deliveredTimestamp = Math.ceil((Date.now() / 1000));
 
         return message;
     }
 
     private async recordMessage(message: Message): Promise<void> {
+        console.log('Saving: ', message);
+
         const savedMessage = await MessageSchema.findOne({
             $or: [
                 { messageId: message.messageId }
@@ -82,21 +112,29 @@ class Worker {
             return;
         }
 
-        const schema = new MessageSchema(message);
-        await schema.save();
+        await MessageSchema.findOneAndUpdate(
+            { messageId: message.messageId },
+            { $set: message },
+            {
+                upsert: true,
+                returnNewDocument: true,
+                returnDocument: "after"
+            });
     }
 }
 
 (async () => {
+    await mongoose.connect(DbConfig.url);
+
     const worker = new Worker();
 
     const { message }: { message: Message; } = workerData;
 
     switch (message.status) {
         case Status.INITIATED:
-            message.initializedTimestamp = (Date.now() / 1000);
+            message.initializedTimestamp = Math.ceil((Date.now() / 1000));
 
-            const txID = await worker.init(message);
+            const txID = await worker.initializeTrx(message);
 
             console.log(txID);
             parentPort?.postMessage(txID);
@@ -104,7 +142,7 @@ class Worker {
             break;
 
         case Status.RETRY:
-            message.retriedTimestamp = (Date.now() / 1000);
+            message.retriedTimestamp = Math.ceil((Date.now() / 1000));
 
             break;
 

@@ -1,0 +1,395 @@
+{
+  "types": [
+    {
+      "typeId": 0,
+      "type": "()",
+      "components": [],
+      "typeParameters": null
+    },
+    {
+      "typeId": 1,
+      "type": "b256",
+      "components": null,
+      "typeParameters": null
+    },
+    {
+      "typeId": 2,
+      "type": "str[10]",
+      "components": null,
+      "typeParameters": null
+    },
+    {
+      "typeId": 3,
+      "type": "str[11]",
+      "components": null,
+      "typeParameters": null
+    },
+    {
+      "typeId": 4,
+      "type": "str[12]",
+      "components": null,
+      "typeParameters": null
+    },
+    {
+      "typeId": 5,
+      "type": "str[20]",
+      "components": null,
+      "typeParameters": null
+    },
+    {
+      "typeId": 6,
+      "type": "str[8]",
+      "components": null,
+      "typeParameters": null
+    },
+    {
+      "typeId": 7,
+      "type": "struct Address",
+      "components": [
+        {
+          "name": "value",
+          "type": 1,
+          "typeArguments": null
+        }
+      ],
+      "typeParameters": null
+    },
+    {
+      "typeId": 8,
+      "type": "struct SwayCallPayApp",
+      "components": [
+        {
+          "name": "owner",
+          "type": 7,
+          "typeArguments": null
+        },
+        {
+          "name": "contractId",
+          "type": 1,
+          "typeArguments": null
+        },
+        {
+          "name": "balance",
+          "type": 10,
+          "typeArguments": null
+        },
+        {
+          "name": "spent",
+          "type": 10,
+          "typeArguments": null
+        }
+      ],
+      "typeParameters": null
+    },
+    {
+      "typeId": 9,
+      "type": "u32",
+      "components": null,
+      "typeParameters": null
+    },
+    {
+      "typeId": 10,
+      "type": "u64",
+      "components": null,
+      "typeParameters": null
+    }
+  ],
+  "functions": [
+    {
+      "inputs": [
+        {
+          "name": "contractId",
+          "type": 1,
+          "typeArguments": null
+        }
+      ],
+      "name": "add_app",
+      "output": {
+        "name": "",
+        "type": 0,
+        "typeArguments": null
+      },
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "read",
+            "write"
+          ]
+        }
+      ]
+    },
+    {
+      "inputs": [
+        {
+          "name": "contractId",
+          "type": 1,
+          "typeArguments": null
+        }
+      ],
+      "name": "app",
+      "output": {
+        "name": "",
+        "type": 8,
+        "typeArguments": null
+      },
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "inputs": [
+        {
+          "name": "contractId",
+          "type": 1,
+          "typeArguments": null
+        }
+      ],
+      "name": "deposit",
+      "output": {
+        "name": "",
+        "type": 0,
+        "typeArguments": null
+      },
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "read",
+            "write"
+          ]
+        },
+        {
+          "name": "payable",
+          "arguments": []
+        }
+      ]
+    },
+    {
+      "inputs": [
+        {
+          "name": "contractId",
+          "type": 1,
+          "typeArguments": null
+        }
+      ],
+      "name": "get_balance",
+      "output": {
+        "name": "",
+        "type": 10,
+        "typeArguments": null
+      },
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "inputs": [
+        {
+          "name": "swayConfig",
+          "type": 1,
+          "typeArguments": null
+        }
+      ],
+      "name": "initialize",
+      "output": {
+        "name": "",
+        "type": 0,
+        "typeArguments": null
+      },
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "write"
+          ]
+        }
+      ]
+    },
+    {
+      "inputs": [
+        {
+          "name": "destChainId",
+          "type": 9,
+          "typeArguments": null
+        },
+        {
+          "name": "contractId",
+          "type": 1,
+          "typeArguments": null
+        }
+      ],
+      "name": "pay_gas",
+      "output": {
+        "name": "",
+        "type": 10,
+        "typeArguments": null
+      },
+      "attributes": [
+        {
+          "name": "payable",
+          "arguments": []
+        },
+        {
+          "name": "storage",
+          "arguments": [
+            "read",
+            "write"
+          ]
+        }
+      ]
+    },
+    {
+      "inputs": [
+        {
+          "name": "receiptId",
+          "type": 10,
+          "typeArguments": null
+        },
+        {
+          "name": "contractId",
+          "type": 1,
+          "typeArguments": null
+        }
+      ],
+      "name": "use_receipt",
+      "output": {
+        "name": "",
+        "type": 10,
+        "typeArguments": null
+      },
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "read",
+            "write"
+          ]
+        }
+      ]
+    },
+    {
+      "inputs": [
+        {
+          "name": "amount",
+          "type": 10,
+          "typeArguments": null
+        },
+        {
+          "name": "contractId",
+          "type": 1,
+          "typeArguments": null
+        }
+      ],
+      "name": "withdraw",
+      "output": {
+        "name": "",
+        "type": 0,
+        "typeArguments": null
+      },
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "read",
+            "write"
+          ]
+        }
+      ]
+    }
+  ],
+  "loggedTypes": [
+    {
+      "logId": 0,
+      "loggedType": {
+        "name": "",
+        "type": 2,
+        "typeArguments": null
+      }
+    },
+    {
+      "logId": 1,
+      "loggedType": {
+        "name": "",
+        "type": 6,
+        "typeArguments": null
+      }
+    },
+    {
+      "logId": 2,
+      "loggedType": {
+        "name": "",
+        "type": 3,
+        "typeArguments": null
+      }
+    },
+    {
+      "logId": 3,
+      "loggedType": {
+        "name": "",
+        "type": 2,
+        "typeArguments": null
+      }
+    },
+    {
+      "logId": 4,
+      "loggedType": {
+        "name": "",
+        "type": 5,
+        "typeArguments": null
+      }
+    },
+    {
+      "logId": 5,
+      "loggedType": {
+        "name": "",
+        "type": 4,
+        "typeArguments": null
+      }
+    },
+    {
+      "logId": 6,
+      "loggedType": {
+        "name": "",
+        "type": 3,
+        "typeArguments": null
+      }
+    },
+    {
+      "logId": 7,
+      "loggedType": {
+        "name": "",
+        "type": 3,
+        "typeArguments": null
+      }
+    },
+    {
+      "logId": 8,
+      "loggedType": {
+        "name": "",
+        "type": 2,
+        "typeArguments": null
+      }
+    },
+    {
+      "logId": 9,
+      "loggedType": {
+        "name": "",
+        "type": 5,
+        "typeArguments": null
+      }
+    }
+  ],
+  "messagesTypes": [],
+  "configurables": []
+}

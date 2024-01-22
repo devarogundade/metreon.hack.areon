@@ -5,9 +5,25 @@ interface IMetreonConfig {
     event SetFee(uint256 toChainId, uint256 amount);
     event SupportedChains(uint256[] chains);
     event SupportedTokens(address[] chains);
+    event SetChainTokenId(
+        uint256 chainId,
+        address tokenId,
+        address chainTokenId
+    );
 
     error InvalidAmount(uint256 amount);
     error InvalidChainId(uint256 chainId);
+
+    function getChainTokenId(
+        uint256 chainId,
+        address tokenId
+    ) external view returns (address);
+
+    function setChainTokenId(
+        uint256 chainId,
+        address tokenId,
+        address chainToken
+    ) external;
 
     function getFee(uint256 toChainId) external view returns (uint256);
 

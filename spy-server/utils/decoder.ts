@@ -10,12 +10,12 @@ class Decoder {
 
     dispatchFormat(event: string): string[] | null {
         if (event == 'sendMessage') {
-            return ['bytes32', 'address', 'address', 'uint256', 'uint256', 'bytes', 'bytes32'];
+            return ['bytes32', 'uint256', 'address', 'uint256', 'uint256', 'address', 'address', '(address,uint256)[]', 'uint8', 'bytes'];
         }
         return null;
     }
 
-    toDisptachModel(event: string, data: any, transactionHash: string, fromChainId: 11155111 | 80001 | 97 | 462): Message | null {
+    toDisptachModel(event: string, data: any, transactionHash: string, fromChainId: 80001 | 97 | 462): Message | null {
         if (event == 'sendMessage') {
             return {
                 messageId: data[0],

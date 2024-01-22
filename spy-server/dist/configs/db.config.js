@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const DbConfig = {
-    url: "mongodb+srv://w3link:w3link@cluster0.0lwisvw.mongodb.net/"
+    url: "mongodb+srv://devarogundade:metreon@cluster0.t9pxeac.mongodb.net/"
 };
 exports.default = DbConfig;

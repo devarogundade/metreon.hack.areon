@@ -22,19 +22,20 @@ class Route {
     init(app) {
         router.post('/moralis/events', (req, res) => __awaiter(this, void 0, void 0, function* () {
             const messages = stream.init(req);
+            console.log('Moralis events: ', messages);
             if (!messages) {
                 return res.send('No message was passed');
             }
             const result = controller.processMessages(messages);
             res.status(result.status).send(result);
         }));
-        router.post('/messages', (req, res) => __awaiter(this, void 0, void 0, function* () {
+        router.get('/messages', (req, res) => __awaiter(this, void 0, void 0, function* () {
             const { take, skip } = req.query;
             const query = req.body;
             const result = yield controller.allMessages(Number(take), Number(skip), query);
             res.status(result.status).send(result);
         }));
-        router.post('/messages/:hash', (req, res) => __awaiter(this, void 0, void 0, function* () {
+        router.get('/messages/:hash', (req, res) => __awaiter(this, void 0, void 0, function* () {
             const { hash } = req.params;
             const result = yield controller.message(hash);
             res.status(result.status).send(result);

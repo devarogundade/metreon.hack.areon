@@ -9,8 +9,8 @@ export interface Message {
     fee: number;
     feeToken: string;
     sequenceNumber: number;
-    fromChainId: 11155111 | 80001 | 97 | 462;
-    toChainId: 11155111 | 80001 | 97 | 462;
+    fromChainId: 80001 | 97 | 462;
+    toChainId: 80001 | 97 | 462;
     sender: string;
     receiver: string;
     tokens: Token[];

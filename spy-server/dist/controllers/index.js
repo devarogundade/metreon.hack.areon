@@ -15,10 +15,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Controller = void 0;
 const worker_threads_1 = require("worker_threads");
 const schemas_1 = __importDefault(require("../database/schemas"));
+const path_1 = __importDefault(require("path"));
 class Controller {
     processMessages(messages) {
         messages.forEach(message => {
-            new worker_threads_1.Worker(__dirname + "workers/index.js", {
+            new worker_threads_1.Worker(path_1.default.join(__dirname, "../workers/index.js"), {
                 workerData: { message }
             });
         });

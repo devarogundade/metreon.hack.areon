@@ -18,32 +18,40 @@ const schemas_1 = __importDefault(require("../database/schemas"));
 const chains_config_1 = __importDefault(require("../configs/chains.config"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const web3_1 = __importDefault(require("web3"));
+const mongoose_1 = __importDefault(require("mongoose"));
+const db_config_1 = __importDefault(require("../configs/db.config"));
 dotenv_1.default.config();
 const MetreonReceiver = require('../abis/MetreonReceiver.json');
 // Signing Key and Address
-const handlerEvmKey = process.env.HANDLER_EVM_PRIVATE_KEY;
+const handlerEvmKey = process.env.EVM_PRIVATE_KEY;
+var PayMaster;
+(function (PayMaster) {
+    PayMaster[PayMaster["SENDER"] = 0] = "SENDER";
+    PayMaster[PayMaster["METREON_PAY"] = 1] = "METREON_PAY";
+})(PayMaster || (PayMaster = {}));
 class Worker {
-    init(message) {
+    initializeTrx(message) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield this.recordTransaction(message);
+                yield this.recordMessage(message);
                 const signedMessage = yield this.signTransaction(message);
-                yield this.recordTransaction(signedMessage);
+                yield this.recordMessage(signedMessage);
             }
             catch (error) {
                 console.log(error);
-                message.failedTimestamp = (Date.now() / 1000);
+                message.failedTimestamp = Math.ceil((Date.now() / 1000));
                 message.status = status_1.Status.FAILED;
-                this.recordTransaction(message);
+                this.recordMessage(message);
             }
         });
     }
     signTransaction(message) {
         return __awaiter(this, void 0, void 0, function* () {
             const web3 = new web3_1.default(chains_config_1.default.rpcs[message.toChainId]);
-            const metreonReceiver = new web3.eth.Contract(MetreonReceiver.abi, message.receiver);
+            console.log('handlerEvmKey: ', handlerEvmKey);
             const signer = web3.eth.accounts.privateKeyToAccount(handlerEvmKey);
             web3.eth.accounts.wallet.add(signer);
+            console.log(`3`);
             const incomingMessage = {
                 messageId: message.messageId,
                 fromChainId: message.fromChainId,
@@ -52,7 +60,9 @@ class Worker {
                 tokens: message.tokens,
                 payMaster: message.payMaster
             };
+            console.log(incomingMessage);
             const tokenPool = chains_config_1.default.tokenPoolIds[message.toChainId];
+            const metreonReceiver = new web3.eth.Contract(MetreonReceiver.abi, message.receiver);
             const gas = yield metreonReceiver.methods.metreonReceive(incomingMessage, tokenPool).estimateGas({ from: signer.address });
             console.log('Gas: ', gas);
             const gasPrice = yield web3.eth.getGasPrice();
@@ -63,29 +73,42 @@ class Worker {
                 gas: gas
             });
             message.toTrxHash = transactionHash;
-            message.deliveredTimestamp = (Date.now() / 1000);
+            message.deliveredTimestamp = Math.ceil((Date.now() / 1000));
             return message;
         });
     }
-    recordTransaction(message) {
+    recordMessage(message) {
         return __awaiter(this, void 0, void 0, function* () {
-            const schema = new schemas_1.default(message);
-            yield schema.save();
+            console.log('Saving: ', message);
+            const savedMessage = yield schemas_1.default.findOne({
+                $or: [
+                    { messageId: message.messageId }
+                ]
+            });
+            if ((savedMessage === null || savedMessage === void 0 ? void 0 : savedMessage.status) == status_1.Status.DELIVERED.toString()) {
+                return;
+            }
+            yield schemas_1.default.findOneAndUpdate({ messageId: message.messageId }, { $set: message }, {
+                upsert: true,
+                returnNewDocument: true,
+                returnDocument: "after"
+            });
         });
     }
 }
 (() => __awaiter(void 0, void 0, void 0, function* () {
+    yield mongoose_1.default.connect(db_config_1.default.url);
     const worker = new Worker();
     const { message } = worker_threads_1.workerData;
     switch (message.status) {
         case status_1.Status.INITIATED:
-            message.initializedTimestamp = (Date.now() / 1000);
-            const txID = yield worker.init(message);
+            message.initializedTimestamp = Math.ceil((Date.now() / 1000));
+            const txID = yield worker.initializeTrx(message);
             console.log(txID);
             worker_threads_1.parentPort === null || worker_threads_1.parentPort === void 0 ? void 0 : worker_threads_1.parentPort.postMessage(txID);
             break;
         case status_1.Status.RETRY:
-            message.retriedTimestamp = (Date.now() / 1000);
+            message.retriedTimestamp = Math.ceil((Date.now() / 1000));
             break;
         default:
             break;

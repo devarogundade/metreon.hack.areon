@@ -2,12 +2,13 @@ import { Worker } from "worker_threads";
 import { Message } from "../models/message";
 import { NodeResponse, Paged } from "../routes/interface";
 import MessageSchema from "../database/schemas";
+import path from "path";
 
 export class Controller {
     processMessages(messages: Message[]): NodeResponse<null> {
         messages.forEach(message => {
             new Worker(
-                __dirname + "workers/index.js",
+                path.join(__dirname, "../workers/index.js"),
                 {
                     workerData: { message }
                 }
@@ -17,14 +18,14 @@ export class Controller {
         return { status: 200 };
     }
 
-    async allMessages(take: number, skip: number, query: any): Promise<NodeResponse<Paged<Message[]>>> {
+    async allMessages(page: number, take: number, query: any): Promise<NodeResponse<Paged<Message[]>>> {
         try {
             const count = await MessageSchema.countDocuments();
 
             const data = await MessageSchema.find(query)
                 .limit(take * 1)
-                .skip((skip - 1) * take)
-                .sort({ dispatchTimestamp: 'desc' });
+                .skip((page - 1) * take)
+                .sort({ initializedTimestamp: 'desc' });
 
             return {
                 status: 200,

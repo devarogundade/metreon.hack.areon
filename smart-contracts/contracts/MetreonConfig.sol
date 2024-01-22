@@ -7,10 +7,29 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 contract MetreonConfig is IMetreonConfig, Ownable {
     mapping(uint256 => uint256) private _fees;
+    mapping(uint256 => mapping(address => address)) private _tokens;
+
     uint256[] private _supportedChains;
     address[] private _supportedTokens;
 
-    constructor() Ownable(_msgSender()) {}
+    constructor() Ownable() {}
+
+    function getChainTokenId(
+        uint256 chainId,
+        address tokenId
+    ) external view override returns (address) {
+        return _tokens[chainId][tokenId];
+    }
+
+    function setChainTokenId(
+        uint256 chainId,
+        address tokenId,
+        address chainTokenId
+    ) external override onlyOwner {
+        _tokens[chainId][tokenId] = chainTokenId;
+
+        emit SetChainTokenId(chainId, tokenId, chainTokenId);
+    }
 
     function getFee(
         uint256 toChainId

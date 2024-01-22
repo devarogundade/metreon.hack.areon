@@ -1,0 +1,336 @@
+{
+  "types": [
+    {
+      "typeId": 0,
+      "type": "()",
+      "components": [],
+      "typeParameters": null
+    },
+    {
+      "typeId": 1,
+      "type": "b256",
+      "components": null,
+      "typeParameters": null
+    },
+    {
+      "typeId": 2,
+      "type": "str[13]",
+      "components": null,
+      "typeParameters": null
+    },
+    {
+      "typeId": 3,
+      "type": "str[19]",
+      "components": null,
+      "typeParameters": null
+    },
+    {
+      "typeId": 4,
+      "type": "struct Address",
+      "components": [
+        {
+          "name": "value",
+          "type": 1,
+          "typeArguments": null
+        }
+      ],
+      "typeParameters": null
+    },
+    {
+      "typeId": 5,
+      "type": "struct SCPayloadData",
+      "components": [
+        {
+          "name": "slot0U32",
+          "type": 6,
+          "typeArguments": null
+        },
+        {
+          "name": "slot1U32",
+          "type": 6,
+          "typeArguments": null
+        },
+        {
+          "name": "slot0U64",
+          "type": 7,
+          "typeArguments": null
+        },
+        {
+          "name": "slot1U64",
+          "type": 7,
+          "typeArguments": null
+        },
+        {
+          "name": "slot2U64",
+          "type": 7,
+          "typeArguments": null
+        },
+        {
+          "name": "slot0B256",
+          "type": 1,
+          "typeArguments": null
+        },
+        {
+          "name": "slot1B256",
+          "type": 1,
+          "typeArguments": null
+        },
+        {
+          "name": "slot2B256",
+          "type": 1,
+          "typeArguments": null
+        },
+        {
+          "name": "slot3B256",
+          "type": 1,
+          "typeArguments": null
+        }
+      ],
+      "typeParameters": null
+    },
+    {
+      "typeId": 6,
+      "type": "u32",
+      "components": null,
+      "typeParameters": null
+    },
+    {
+      "typeId": 7,
+      "type": "u64",
+      "components": null,
+      "typeParameters": null
+    }
+  ],
+  "functions": [
+    {
+      "inputs": [
+        {
+          "name": "destChainId",
+          "type": 6,
+          "typeArguments": null
+        },
+        {
+          "name": "contractId",
+          "type": 1,
+          "typeArguments": null
+        }
+      ],
+      "name": "add_dest_chain",
+      "output": {
+        "name": "",
+        "type": 0,
+        "typeArguments": null
+      },
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "write"
+          ]
+        }
+      ]
+    },
+    {
+      "inputs": [
+        {
+          "name": "token0",
+          "type": 1,
+          "typeArguments": null
+        },
+        {
+          "name": "token1",
+          "type": 1,
+          "typeArguments": null
+        }
+      ],
+      "name": "add_pair",
+      "output": {
+        "name": "",
+        "type": 0,
+        "typeArguments": null
+      },
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "write"
+          ]
+        }
+      ]
+    },
+    {
+      "inputs": [
+        {
+          "name": "destChainId",
+          "type": 6,
+          "typeArguments": null
+        },
+        {
+          "name": "receiver",
+          "type": 1,
+          "typeArguments": null
+        }
+      ],
+      "name": "bridge",
+      "output": {
+        "name": "",
+        "type": 0,
+        "typeArguments": null
+      },
+      "attributes": [
+        {
+          "name": "payable",
+          "arguments": []
+        },
+        {
+          "name": "storage",
+          "arguments": [
+            "read",
+            "write"
+          ]
+        }
+      ]
+    },
+    {
+      "inputs": [
+        {
+          "name": "fromChainId",
+          "type": 6,
+          "typeArguments": null
+        },
+        {
+          "name": "data",
+          "type": 5,
+          "typeArguments": null
+        }
+      ],
+      "name": "execute",
+      "output": {
+        "name": "",
+        "type": 0,
+        "typeArguments": null
+      },
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "read",
+            "write"
+          ]
+        }
+      ]
+    },
+    {
+      "inputs": [],
+      "name": "fee_identifier",
+      "output": {
+        "name": "",
+        "type": 2,
+        "typeArguments": null
+      },
+      "attributes": null
+    },
+    {
+      "inputs": [],
+      "name": "fee_payer",
+      "output": {
+        "name": "",
+        "type": 4,
+        "typeArguments": null
+      },
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "inputs": [],
+      "name": "fund",
+      "output": {
+        "name": "",
+        "type": 0,
+        "typeArguments": null
+      },
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "read",
+            "write"
+          ]
+        },
+        {
+          "name": "payable",
+          "arguments": []
+        }
+      ]
+    },
+    {
+      "inputs": [
+        {
+          "name": "swayCall",
+          "type": 1,
+          "typeArguments": null
+        },
+        {
+          "name": "swayCallPay",
+          "type": 1,
+          "typeArguments": null
+        }
+      ],
+      "name": "initialize",
+      "output": {
+        "name": "",
+        "type": 0,
+        "typeArguments": null
+      },
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "write"
+          ]
+        }
+      ]
+    },
+    {
+      "inputs": [
+        {
+          "name": "owner",
+          "type": 1,
+          "typeArguments": null
+        }
+      ],
+      "name": "set_owner",
+      "output": {
+        "name": "",
+        "type": 0,
+        "typeArguments": null
+      },
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "write"
+          ]
+        }
+      ]
+    }
+  ],
+  "loggedTypes": [
+    {
+      "logId": 0,
+      "loggedType": {
+        "name": "",
+        "type": 3,
+        "typeArguments": null
+      }
+    }
+  ],
+  "messagesTypes": [],
+  "configurables": []
+}

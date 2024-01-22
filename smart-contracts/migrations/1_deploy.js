@@ -3,7 +3,8 @@ const MetreonConfig = artifacts.require('MetreonConfig');
 const TokenPool = artifacts.require('TokenPool');
 
 module.exports = async function (deployer, network, accounts) {
-    await deployer.deploy(TokenPool);
+    return;
     await deployer.deploy(MetreonConfig);
+    await deployer.deploy(TokenPool, MetreonConfig.address);
     await deployer.deploy(MetreonPay);
 };

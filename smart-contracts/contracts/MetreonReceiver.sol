@@ -12,7 +12,7 @@ import {Context} from "@openzeppelin/contracts/utils/Context.sol";
 abstract contract MetreonReceiver is IMessageReceiver, Context, Ownable {
     address private immutable _metreon;
 
-    constructor(address metreon_) Ownable(_msgSender()) {
+    constructor(address metreon_) Ownable() {
         if (metreon_ == address(0)) revert InvalidRouter(address(0));
         _metreon = metreon_;
     }
@@ -29,7 +29,7 @@ abstract contract MetreonReceiver is IMessageReceiver, Context, Ownable {
 
         if (message.tokens.length > 0) {
             IPool pool = IPool(tokenPool);
-            pool.withdrawTo(address(this), message.tokens);
+            pool.withdrawTo(address(this), message);
         }
     }
 
