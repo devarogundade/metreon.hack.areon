@@ -8,9 +8,18 @@ import {IMessageReceiver} from "../interfaces/IMessageReceiver.sol";
 import {Context} from "@openzeppelin/contracts/utils/Context.sol";
 
 contract MetreonPay is IMetreonPay, Context {
-    mapping(address => uint256) public _dapps;
+    mapping(address => uint256) private _balances;
+    uint256 private MAX_BALANCE = 100_000_000_000_000_000_000;
+
+    function balanceOf(address dapp) public view override returns (uint256) {
+        return _balances[dapp];
+    }
 
     function deposit(address dapp) external payable override {
+        uint256 balance = balanceOf(dapp);
+
+        if ((balance + msg.value) > MAX_BALANCE) revert OverflowAmount();
+
         IMessageReceiver receiver = IMessageReceiver(dapp);
 
         if (_msgSender() != receiver.metreonPayMaster())
@@ -18,7 +27,7 @@ contract MetreonPay is IMetreonPay, Context {
 
         uint256 amount = msg.value;
 
-        _dapps[dapp] += amount;
+        _balances[dapp] += amount;
 
         emit Deposit(dapp, amount);
     }
@@ -29,9 +38,9 @@ contract MetreonPay is IMetreonPay, Context {
         if (_msgSender() != receiver.metreonPayMaster())
             revert InvalidPayMaster(_msgSender());
 
-        if (_dapps[dapp] < amount) revert InsufficientAmount(amount);
+        if (_balances[dapp] < amount) revert InsufficientAmount(amount);
 
-        _dapps[dapp] -= amount;
+        _balances[dapp] -= amount;
 
         // transfer to metreonPayMaster
         payable(receiver.metreonPayMaster()).transfer(amount);
@@ -44,9 +53,9 @@ contract MetreonPay is IMetreonPay, Context {
         uint256 amount,
         bytes32 messageId
     ) external override {
-        if (_dapps[dapp] < amount) revert InsufficientAmount(amount);
+        if (_balances[dapp] < amount) revert InsufficientAmount(amount);
 
-        _dapps[dapp] -= amount;
+        _balances[dapp] -= amount;
 
         emit PayGas(dapp, amount, messageId);
     }

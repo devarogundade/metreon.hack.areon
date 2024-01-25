@@ -84,7 +84,7 @@
                                         :href="`${$chain(event.toChainId).scan}/tx/${event.toTrxHash}`" target="_blank">
                                         <div class="hash">
                                             <div class="img"><img :src="$chain(event.toChainId).image" alt=""></div>
-                                            <p>{{ event.toHash }}</p>
+                                            <p>{{ event.toTrxHash }}</p>
                                             <OutIcon v-if="event.toTrxHash != ''" />
                                         </div>
                                     </a>

@@ -35,7 +35,7 @@ class Worker {
             try {
                 yield this.recordMessage(message);
                 const signedMessage = yield this.signTransaction(message);
-                yield this.recordMessage(signedMessage);
+                this.recordMessage(signedMessage);
             }
             catch (error) {
                 console.log(error);
@@ -48,10 +48,8 @@ class Worker {
     signTransaction(message) {
         return __awaiter(this, void 0, void 0, function* () {
             const web3 = new web3_1.default(chains_config_1.default.rpcs[message.toChainId]);
-            console.log('handlerEvmKey: ', handlerEvmKey);
             const signer = web3.eth.accounts.privateKeyToAccount(handlerEvmKey);
             web3.eth.accounts.wallet.add(signer);
-            console.log(`3`);
             const incomingMessage = {
                 messageId: message.messageId,
                 fromChainId: message.fromChainId,
@@ -60,7 +58,6 @@ class Worker {
                 tokens: message.tokens,
                 payMaster: message.payMaster
             };
-            console.log(incomingMessage);
             const tokenPool = chains_config_1.default.tokenPoolIds[message.toChainId];
             const metreonReceiver = new web3.eth.Contract(MetreonReceiver.abi, message.receiver);
             const gas = yield metreonReceiver.methods.metreonReceive(incomingMessage, tokenPool).estimateGas({ from: signer.address });
@@ -74,6 +71,7 @@ class Worker {
             });
             message.toTrxHash = transactionHash;
             message.deliveredTimestamp = Math.ceil((Date.now() / 1000));
+            message.status = status_1.Status.DELIVERED;
             return message;
         });
     }

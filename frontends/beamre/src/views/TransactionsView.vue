@@ -11,16 +11,6 @@
                         </div>
                     </div>
 
-                    <!-- <button @click="initCall">Init Call</button>
-                    <button @click="initPay">Init Pay</button>
-                    <button @click="initNova">Init Nova</button>
-                    <button @click="setPrice">Set Price</button>
-                    <button @click="addChain">Add Chain</button>
-                    <button @click="fund">Fund</button>
-                    <button @click="addPair">Add pair</button>
-                    <button @click="faucet">Faucet</button>
-                    <button @click="execute">Execute</button> -->
-
                     <div class="transaction_table">
                         <table>
                             <div class="thead">
@@ -39,18 +29,19 @@
                                 <tr>
                                     <td>
                                         <a target="_blank"
-                                            :href="`https://explorer.swaycall.space/messages/${transaction.bridgeHash}`">
+                                            :href="`https://metreon-scan.netlify.app/messages/${transaction.messageId}`">
                                             <div class="route">
                                                 <div class="images">
                                                     <img :src="$chain(transaction.fromChainId).image" alt="">
                                                     <ArrowRightIcon />
-                                                    <img :src="$chain(transaction.destChainId).image" alt="">
+                                                    <img :src="$chain(transaction.toChainId).image" alt="">
                                                 </div>
 
                                                 <div class="text">
                                                     <p class="name">{{ $chain(transaction.fromChainId).name }} - {{
-                                                        $chain(transaction.destChainId).name }}</p>
-                                                    <p class="timestamp">{{ $toDate(transaction.dispatchTimestamp) }}
+                                                        $chain(transaction.toChainId).name }}</p>
+                                                    <p class="timestamp">{{ $toDate(transaction.initializedTimestamp * 1000)
+                                                    }}
                                                         <OutIcon />
                                                     </p>
                                                 </div>
@@ -82,19 +73,12 @@
 
                                     <td>
                                         <div class="source_txn">
-                                            <p>{{
-                                                transaction.destChainId == 0 ? $toMoney($fromWei(transaction.slot0U64) *
-                                                    1_000_000_000) :
-                                                $toMoney($fromWei(transaction.slot0U64))
-                                            }} <span
-                                                    v-if="transaction.slot0B256 != '0x0000000000000000000000000000000000000000000000000000000000000000'">{{
-                                                        $currencyAddress(transaction.slot0B256.replace('000000000000000000000000',
-                                                            '')).symbol }}</span>
-                                                <span v-else>{{
-                                                    $currencyAddress(transaction.slot0B256).symbol }}</span>
+                                            <p>
+                                                {{ $toMoney($fromWei(transaction.tokens[0].amount)) }}
+                                                <span>{{ $currencyAddress(transaction.tokens[0].tokenId).symbol }}</span>
                                             </p>
                                             <a target="_blank"
-                                                :href="`https://fuellabs.github.io/block-explorer-v2/beta-3/#/transaction/${transaction.fromHash}`">
+                                                :href="`${$chain(transaction.fromChainId).scan}/tx/${transaction.fromHash}`">
                                                 <div class="chain">
                                                     <img :src="$chain(transaction.fromChainId).image" alt="">
                                                     <p>{{ $chain(transaction.fromChainId).name }}</p>
@@ -106,20 +90,13 @@
 
                                     <td>
                                         <div class="destination_txn">
-                                            <p>{{
-                                                transaction.destChainId == 0 ? $toMoney($fromWei(transaction.slot0U64) *
-                                                    1_000_000_000) :
-                                                $toMoney($fromWei(transaction.slot0U64))
-                                            }} <span
-                                                    v-if="transaction.slot0B256 != '0x0000000000000000000000000000000000000000000000000000000000000000'">{{
-                                                        $currencyAddress(transaction.slot0B256.replace('000000000000000000000000',
-                                                            '')).symbol }}</span>
-                                                <span v-else>{{
-                                                    $currencyAddress(transaction.slot0B256).symbol }}</span>
+                                            <p>
+                                                {{ $toMoney($fromWei(transaction.tokens[0].amount)) }}
+                                                <span>{{ $currencyAddress(transaction.tokens[0].tokenId).symbol }}</span>
                                             </p>
                                             <div class="chain">
-                                                <img :src="$chain(transaction.destChainId).image" alt="">
-                                                <p>{{ $chain(transaction.destChainId).name }}</p>
+                                                <img :src="$chain(transaction.toChainId).image" alt="">
+                                                <p>{{ $chain(transaction.toChainId).name }}</p>
                                                 <OutIcon />
                                             </div>
                                         </div>
@@ -168,11 +145,8 @@ import SemanticYellow from '../components/icons/SemanticYellow.vue';
 
 <script>
 import { fetchMessages } from '../scripts/explorer';
-// import { initCall, addChain, initNova, setPrice, addPair, fund, faucet, initPay, execute } from '../scripts/test'
 import SemanticGreen from '../components/icons/SemanticGreen.vue';
 import SemanticRed from '../components/icons/SemanticRed.vue';
-import Web3 from 'web3';
-import { Address } from 'fuels';
 import Loadingbox from '../components/LoadingBox.vue';
 
 export default {
@@ -197,16 +171,12 @@ export default {
         },
         getMessages: async function (page) {
             try {
-                if (this.$store.state.account != '' && this.$store.state.account != '') {
+                if (this.$store.state.account != '') {
                     // eslint-disable-next-line no-undef
-                    const web3 = new Web3('https://rpc.notadegen.com/sepolia');
-                    const response = await fetchMessages([
-                        web3.utils.padLeft(this.$store.state.account, 64),
-                        new Address(this.$store.state.account).toHexString()
-                    ], page);
+                    const response = await fetchMessages(this.$store.state.account, page);
                     this.transactions = response.data;
-                    this.currentPage = response.currentPage;
                     this.totalPages = response.totalPages;
+                    this.currentPage = page;
                 }
             } catch (error) {
                 console.error(error);

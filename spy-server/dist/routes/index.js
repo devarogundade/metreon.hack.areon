@@ -30,9 +30,9 @@ class Route {
             res.status(result.status).send(result);
         }));
         router.get('/messages', (req, res) => __awaiter(this, void 0, void 0, function* () {
-            const { take, skip } = req.query;
+            const { page = 1, take = 10 } = req.query;
             const query = req.body;
-            const result = yield controller.allMessages(Number(take), Number(skip), query);
+            const result = yield controller.allMessages(Number(page), Number(take), query);
             res.status(result.status).send(result);
         }));
         router.get('/messages/:hash', (req, res) => __awaiter(this, void 0, void 0, function* () {

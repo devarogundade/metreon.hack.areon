@@ -42,7 +42,7 @@
                         <div @click="tab = 1" :class="tab == 1 ? 'tab tab_active' : 'tab'">All ({{ apps.length }})</div>
                         <div v-for="chain, i in $chains()" @click="tab = chain.id"
                             :class="tab == chain.id ? 'tab tab_active' : 'tab'" :key="i">{{ chain.name }} ({{
-                                apps.filter(app => app.local.chainId == chain.id).length }})</div>
+                                apps.filter(app => app.chainId == chain.id).length }})</div>
                     </div>
 
                     <div class="tab_right">
@@ -59,14 +59,14 @@
                     <div class="app" v-for="app, i in filteredApps()" :key="i">
                         <div class="app_header">
                             <div class="app_header_left">
-                                <img :src="app.local.image" alt="">
+                                <img :src="app.image" alt="">
                                 <div class="app_identifiers">
-                                    <p class="app_name">{{ app.local.name }}</p>
+                                    <p class="app_name">{{ app.name }}</p>
                                     <div class="contract">
                                         <p>{{ fineAddress(app.contractId) }}</p>
                                         <div class="chain">
-                                            <img :src="$chain(app.local.chainId).image" alt="">
-                                            {{ $chain(app.local.chainId).name }}
+                                            <img :src="$chain(app.chainId).image" alt="">
+                                            {{ $chain(app.chainId).name }}
                                         </div>
                                     </div>
                                 </div>
@@ -75,7 +75,7 @@
                                 <MenuIcon @click="menuIndex == i ? menuIndex = null : menuIndex = i" />
 
                                 <div class="menu" v-if="menuIndex == i"
-                                    @click="passiveApp = { chainId: app.local.chainId, name: app.local.name, image: app.local.image, contractId: app.contractId, balance: $fromWei(app.balance) }">
+                                    @click="passiveApp = { chainId: app.chainId, name: app.name, image: app.image, contractId: app.contractId, balance: $fromWei(app.balance) }">
                                     <MinusIcon />
                                     <p>Remove funds</p>
                                 </div>
@@ -85,16 +85,16 @@
                             <div class="app_funding_left">
                                 <div class="app_funding_balance">
                                     <p>Funding balance</p>
-                                    <h3>{{ $toMoney($fromWei(app.balance)) }} {{ $chain(app.local.chainId).symbol }}</h3>
+                                    <h3>{{ $toMoney($fromWei(app.balance)) }} {{ $chain(app.chainId).symbol }}</h3>
                                 </div>
                                 <div class="app_funding_progress">
-                                    <div :style="{ width: Number($fromWei(app.balance)) * 100 + '% !important' }"
+                                    <div :style="{ width: Number($fromWei(app.balance) / $fromWei('100000000000000000000')) * 100 + '% !important' }"
                                         class="loading"></div>
                                 </div>
                             </div>
                             <div class="app_funding_right">
                                 <div class="add_funds"
-                                    @click="activeApp = { chainId: app.local.chainId, name: app.local.name, image: app.local.image, contractId: app.contractId }">
+                                    @click="activeApp = { chainId: app.chainId, name: app.name, image: app.image, contractId: app.contractId }">
                                     <AddIcon />
                                     <p>Add Funds</p>
                                 </div>
@@ -158,7 +158,7 @@ export default {
             this.loading = false;
         },
         filteredApps: function () {
-            return this.tab == 1 ? this.apps : this.apps.filter(app => app.local.chainId == this.tab);
+            return this.tab == 1 ? this.apps : this.apps.filter(app => app.chainId == this.tab);
         }
     }
 };

@@ -1,7 +1,7 @@
 const MintableToken = artifacts.require('MintableToken');
 
 module.exports = async function (deployer, network, accounts) {
-    return;
+    // return;
     await deployer.deploy(MintableToken, "Tether USD", "USDT");
     await deployer.deploy(MintableToken, "Circle USD", "USDC");
 

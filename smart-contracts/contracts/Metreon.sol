@@ -70,7 +70,7 @@ contract Metreon is IMetreon, Context {
         for (uint256 index = 0; index < message.tokens.length; index++) {
             Data.Token memory token = message.tokens[index];
 
-            if (token.tokenId == address(0)) {
+            if (token.tokenId == 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE) {
                 payable(_tokenPool).transfer(msg.value);
             } else {
                 IERC20 tokenContract = IERC20(token.tokenId);
@@ -82,11 +82,11 @@ contract Metreon is IMetreon, Context {
             }
         }
 
-        emit SendMessage(
+        emit Dispatch(
             messageId,
             estimatedFee,
-            address(0),
-            _msgIndex,
+            address(0), // native coin
+            _msgIndex, // message sequence
             message.toChainId,
             _msgSender(),
             message.receiver,

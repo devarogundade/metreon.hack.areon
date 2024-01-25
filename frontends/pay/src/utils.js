@@ -15,12 +15,11 @@ const Utils = {
     chain: function (id) {
         return this.chains().find(chain => chain.id == id);
     },
-    swaycallpayIds: function () {
+    metreonPayIds: function () {
         return {
-            11155111: '0x33d8Aceac786F1f5572550A9eB51C2Aca7AE5d67',
-            97: '0xBE10Fd8D5782FF6ebCab2Ca26B9D273DCB1D7B3D',
-            80001: '0x58c2522C3B1fe4059F0dEECd81B681A3bF1a9f9e',
-            0: '0x9f1f6b8d174f9c03812890bdf2aad88fc8509b3b64eaf01c81c022e6781cef28'
+            97: '0x045e0fbBd0A123Ab28357b620eA04b48284c129e',
+            80001: '',
+            462: '0x4c073cadc2EB9Ad464CC1A9E6Edd93e38Cb07A96'
         };
     },
     toDate: function (timestamp) {

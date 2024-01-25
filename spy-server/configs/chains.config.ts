@@ -3,22 +3,22 @@ const Config = {
     BnbTestnet: 97,
     AreonTestnet: 462,
     metreonIds: {
-        80001: '0xC981880C219a5bE49cAb1E02112597B76c4608b5',
-        97: '0xC981880C219a5bE49cAb1E02112597B76c4608b5',
-        462: '0x8851e6DE291C1Be7acBAc56Bacd271b2c35CE9cE'
+        80001: '0x3d269Ea3641fB768Ce7069BB9b73fccc880b9Da6',
+        97: '0x8207EaE49615c6725646f998ba55Fcdcf859d447',
+        462: '0x500C42d6390d64767A7e80905De8B75e82eb44f5'
     },
     rpcs: {
         80001: 'https://rpc.ankr.com/polygon_mumbai',
-        97: 'https://bsc-testnet.public.blastapi.io',
+        97: 'https://data-seed-prebsc-1-s2.bnbchain.org:8545',
         462: 'https://testnet-rpc.areon.network'
     },
     wss: {
         462: 'wss://testnet-ws.areon.network'
     },
     tokenPoolIds: {
-        80001: '0x1569945c68b1a4556Af0072F5d86A4F62F701743',
-        97: '0x1569945c68b1a4556Af0072F5d86A4F62F701743',
-        462: '0x39c8c528246548ac3012123013C53ccD441e06fC'
+        80001: '0x8851e6DE291C1Be7acBAc56Bacd271b2c35CE9cE',
+        97: '0x06E333dFADb83A8AF612f52A2A8C7A95B2C91D3c',
+        462: '0x2214E7B27D352ae5cB38fcE0BA26fa2A85091f6b'
     }
 };
 

@@ -22,7 +22,7 @@
                             </div>
                             <p><span>50</span> USDT
                                 <MetaMaskIcon v-if="$store.state.activeEvm == 462"
-                                    @click="addToMetaMask($currenciesLP(5))" />
+                                    @click="addToMetaMask($currenciesLP(3))" />
                             </p>
                         </div>
                         <div class="coin">
@@ -32,7 +32,7 @@
                             </div>
                             <p><span>50</span> USDC
                                 <MetaMaskIcon v-if="$store.state.activeEvm == 462"
-                                    @click="addToMetaMask($currenciesLP(9))" />
+                                    @click="addToMetaMask($currenciesLP(6))" />
                             </p>
                         </div>
                         <div class="coin">
@@ -42,7 +42,7 @@
                             </div>
                             <p><span>50</span> WBNB
                                 <MetaMaskIcon v-if="$store.state.activeEvm == 462"
-                                    @click="addToMetaMask($currenciesLP(13))" />
+                                    @click="addToMetaMask($currenciesLP(11))" />
                             </p>
                         </div>
                         <div class="coin">
@@ -57,8 +57,8 @@
                         </div>
                     </div>
 
-                    <div class="view_route" @click="mintEvm(11155111)">
-                        <PrimaryButton :progress="minting == 11155111" :text="'Mint all'" />
+                    <div class="view_route" @click="mintEvm(462)">
+                        <PrimaryButton :progress="minting == 462" :text="'Mint all'" />
                     </div>
                 </div>
 
@@ -82,7 +82,7 @@
                             </div>
                             <p><span>50</span> USDT
                                 <MetaMaskIcon v-if="$store.state.activeEvm == 97"
-                                    @click="addToMetaMask($currenciesLP(6))" />
+                                    @click="addToMetaMask($currenciesLP(1))" />
                             </p>
                         </div>
                         <div class="coin">
@@ -92,7 +92,7 @@
                             </div>
                             <p><span>50</span> USDC
                                 <MetaMaskIcon v-if="$store.state.activeEvm == 97"
-                                    @click="addToMetaMask($currenciesLP(10))" />
+                                    @click="addToMetaMask($currenciesLP(4))" />
                             </p>
                         </div>
                         <div class="coin">
@@ -102,7 +102,7 @@
                             </div>
                             <p><span>50</span> WAREA
                                 <MetaMaskIcon v-if="$store.state.activeEvm == 97"
-                                    @click="addToMetaMask($currenciesLP(14))" />
+                                    @click="addToMetaMask($currenciesLP(7))" />
                             </p>
                         </div>
                     </div>
@@ -132,7 +132,7 @@
                             </div>
                             <p><span>50</span> USDT
                                 <MetaMaskIcon v-if="$store.state.activeEvm == 80001"
-                                    @click="addToMetaMask($currenciesLP(7))" />
+                                    @click="addToMetaMask($currenciesLP(2))" />
                             </p>
                         </div>
                         <div class="coin">
@@ -142,7 +142,7 @@
                             </div>
                             <p><span>50</span> USDC
                                 <MetaMaskIcon v-if="$store.state.activeEvm == 80001"
-                                    @click="addToMetaMask($currenciesLP(11))" />
+                                    @click="addToMetaMask($currenciesLP(5))" />
                             </p>
                         </div>
                         <div class="coin">
@@ -152,7 +152,7 @@
                             </div>
                             <p><span>50</span> WAREA
                                 <MetaMaskIcon v-if="$store.state.activeEvm == 97"
-                                    @click="addToMetaMask($currenciesLP(14))" />
+                                    @click="addToMetaMask($currenciesLP(8))" />
                             </p>
                         </div>
                     </div>
@@ -172,7 +172,7 @@ import MetaMaskIcon from '@/components/icons/MetaMaskIcon.vue';
 </script>
 
 <script>
-import { mintForFuel, mintForEvm } from '../scripts/faucet';
+import { mintForEvm } from '../scripts/faucet';
 import { notify } from '../reactives/notify';
 import { connectMetaMask } from '../scripts/auth';
 import { addToMetaMask } from '../scripts/token';
@@ -195,39 +195,9 @@ export default {
                 });
                 return;
             }
-            this.$store.commit('setaccount', result.data);
+            this.$store.commit('setAccount', result.data);
         },
-        mintFuels: async function () {
-            if (this.minting) {
-                notify.push({
-                    'title': 'Warning',
-                    'description': 'Waiting for on-going minting to finish!',
-                    'category': 'error'
-                });
-                return;
-            }
 
-            this.minting = 0;
-
-            const result = await mintForFuel();
-            if (result) {
-                notify.push({
-                    'title': 'Transactions sent',
-                    'description': 'Tokens were minted!',
-                    'category': 'success',
-                    'linkTitle': 'Bridge',
-                    'linkUrl': '/'
-                });
-            } else {
-                notify.push({
-                    'title': 'Transactions failed',
-                    'description': 'Minting failed, Try again!',
-                    'category': 'error'
-                });
-            }
-
-            this.minting = null;
-        },
         mintEvm: async function (chainId) {
             if (this.minting) {
                 notify.push({

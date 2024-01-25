@@ -8,6 +8,7 @@ import env from 'dotenv';
 import Web3 from 'web3';
 import mongoose from 'mongoose';
 import DbConfig from '../configs/db.config';
+import { Token } from '../models/token';
 
 env.config();
 
@@ -19,11 +20,6 @@ const handlerEvmKey = process.env.EVM_PRIVATE_KEY!!;
 enum PayMaster {
     SENDER,
     METREON_PAY
-}
-
-interface Token {
-    tokenId: string;
-    amount: string;
 }
 
 interface IncomingMessage {
@@ -42,7 +38,7 @@ class Worker {
 
             const signedMessage = await this.signTransaction(message);
 
-            await this.recordMessage(signedMessage);
+            this.recordMessage(signedMessage);
         } catch (error) {
             console.log(error);
             message.failedTimestamp = Math.ceil((Date.now() / 1000));
@@ -55,23 +51,17 @@ class Worker {
     private async signTransaction(message: Message): Promise<Message> {
         const web3 = new Web3(Config.rpcs[message.toChainId]);
 
-        console.log('handlerEvmKey: ', handlerEvmKey);
-
         const signer = web3.eth.accounts.privateKeyToAccount(handlerEvmKey);
         web3.eth.accounts.wallet.add(signer);
-
-        console.log(`3`);
 
         const incomingMessage: IncomingMessage = {
             messageId: message.messageId,
             fromChainId: message.fromChainId,
             sender: message.sender,
             payload: message.payload,
-            tokens: message.tokens as unknown as Token[],
+            tokens: message.tokens,
             payMaster: message.payMaster
         };
-
-        console.log(incomingMessage);
 
         const tokenPool = Config.tokenPoolIds[message.toChainId];
 
@@ -95,6 +85,7 @@ class Worker {
 
         message.toTrxHash = transactionHash;
         message.deliveredTimestamp = Math.ceil((Date.now() / 1000));
+        message.status = Status.DELIVERED;
 
         return message;
     }

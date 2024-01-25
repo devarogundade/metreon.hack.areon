@@ -114,7 +114,7 @@
 
                         <div class="to_balance">
                             <p>~${{ $toMoney(($store.state.prices[bridge.currency.symbol] * bridge.amount)) }}</p>
-                            <p>Bal: <span>{{ $toMoney($fromWei(bridge.balance1) * 1_000_000_000) }}</span></p>
+                            <p>Bal: <span>{{ $toMoney($fromWei(bridge.balance1)) }}</span></p>
                         </div>
                     </div>
 
@@ -151,10 +151,10 @@ import TimeIcon from '@/components/icons/TimeIcon.vue';
 </script>
 
 <script>
-import { connectMetaMask, connectFuel } from '../scripts/auth';
-import { bridgeEVM, bridgeFUELVM } from '../scripts/bridge';
+import { connectMetaMask } from '../scripts/auth';
+import { bridgeEVM } from '../scripts/bridge';
 import { notify } from '../reactives/notify';
-import { getErcAllocation, ercApprove, ercBalance, fuelBalances } from '../scripts/token';
+import { getErcAllocation, ercApprove, ercBalance } from '../scripts/token';
 export default {
     watch: {
         'bridge.amount': function () {
@@ -210,20 +210,9 @@ export default {
                 });
                 return;
             }
-            this.$store.commit('setaccount', result.data);
+            this.$store.commit('setAccount', result.data);
         },
-        auth: async function () {
-            const result = await connectFuel();
-            if (result.status == 'error') {
-                notify.push({
-                    'title': 'Connection failed',
-                    'description': result.data,
-                    'category': 'error'
-                });
-                return;
-            }
-            this.$store.commit('setaccount', result.data);
-        },
+
         refreshBalance: async function () {
             if (this.$store.state.account != '') {
                 this.bridge.balance0 = await ercBalance(
@@ -231,37 +220,49 @@ export default {
                     this.bridge.currency,
                     this.$store.state.account
                 );
-            }
 
-            if (this.$store.state.account != '') {
-                this.bridge.balance1 = await fuelBalances(
+                this.bridge.balance1 = await ercBalance(
+                    this.bridge.to.chain,
                     this.bridge.currency,
                     this.$store.state.account
                 );
             }
-
         },
+
         refreshAllowance: async function () {
+            let fromChain = this.bridge.from.chain;
+            let toChain = this.bridge.to.chain;
+
             if (this.interchange) {
-                this.allowance = '100000000000000000000000000';
-                return;
+                fromChain = toChain;
             }
 
             this.allowance = await getErcAllocation(
-                this.bridge.from.chain,
+                fromChain,
                 this.bridge.currency,
                 this.$store.state.account
             );
         },
+
         approve: async function () {
             if (this.approving) return;
             this.approving = true;
 
-            this.$store.commit('setActiveEvm', this.bridge.from.chain.id);
+            let fromChain = this.bridge.from.chain;
+            let toChain = this.bridge.to.chain;
+
+            if (this.interchange) {
+                let tempFrom = fromChain;
+                fromChain = toChain;
+                toChain = tempFrom;
+            }
+
+            this.$store.commit('setActiveEvm', fromChain.id);
+
             await this.auth();
 
             await ercApprove(
-                this.bridge.from.chain,
+                fromChain,
                 this.bridge.currency,
                 this.$toWei(this.bridge.amount)
             );
@@ -282,17 +283,10 @@ export default {
                 return;
             }
 
-            if (this.bridge.currency.isNative && this.bridge.amount > '0.00005') {
-                notify.push({
-                    'title': 'Not much liquidity of ETH in the pools',
-                    'description': 'Use <= 0.00005 ETH Instead!',
-                    'category': 'error'
-                });
-                return;
-            } else if (this.bridge.amount > '15') {
+            if (this.bridge.amount > '10') {
                 notify.push({
                     'title': `Not much liquidity of ${this.bridge.currency.symbol} in the pools`,
-                    'description': `Use <= 15 ${this.bridge.currency.symbol} Instead!`,
+                    'description': `Use amount <= 10 ${this.bridge.currency.symbol} Instead!`,
                     'category': 'error'
                 });
                 return;
@@ -300,93 +294,52 @@ export default {
 
             this.bridging = true;
 
-            let fromChainId = this.bridge.from.chain;
-            let destChain = this.bridge.to.chain;
+            let fromChain = this.bridge.from.chain;
+            let toChain = this.bridge.to.chain;
 
             if (this.interchange) {
-                let tempFrom = fromChainId;
-                fromChainId = destChain;
-                destChain = tempFrom;
+                let tempFrom = fromChain;
+                fromChain = toChain;
+                toChain = tempFrom;
             }
 
-            let receiver;
-            if (fromChainId.category == "EVM") {
-                receiver = this.$store.state.account;
+            const receiver = this.$store.state.account;
+
+            this.$store.commit('setActiveEvm', fromChain.id);
+
+            await this.auth();
+
+            if (receiver == '') {
+                notify.push({
+                    'title': 'Receiving wallet not connected!',
+                    'description': 'Connect your Fuel Wallet',
+                    'category': 'error'
+                });
+                this.bridging = false;
+                return;
+            }
+
+            const transaction = await bridgeEVM(
+                fromChain,
+                toChain,
+                this.bridge.currency,
+                this.$toWei(this.bridge.amount)
+            );
+
+            if (transaction) {
+                notify.push({
+                    'title': 'Transaction sent',
+                    'description': 'View transaction at the transactions page!',
+                    'category': 'success',
+                    'linkTitle': 'View Trx',
+                    'linkUrl': '/transactions'
+                });
             } else {
-                receiver = this.$store.state.account;
-            }
-
-            if (fromChainId.category == "EVM") {
-                this.$store.commit('setActiveEvm', this.bridge.from.chain.id);
-                await this.auth();
-
-                if (receiver == '') {
-                    notify.push({
-                        'title': 'Receiving wallet not connected!',
-                        'description': 'Connect your Fuel Wallet',
-                        'category': 'error'
-                    });
-                    this.bridging = false;
-                    return;
-                }
-
-                const transaction = await bridgeEVM(
-                    fromChainId,
-                    destChain,
-                    this.bridge.currency,
-                    this.$toWei(this.bridge.amount),
-                    receiver
-                );
-
-                if (transaction) {
-                    notify.push({
-                        'title': 'Transaction sent',
-                        'description': 'View transaction at the transactions page!',
-                        'category': 'success',
-                        'linkTitle': 'View Trx',
-                        'linkUrl': '/transactions'
-                    });
-                } else {
-                    notify.push({
-                        'title': 'Transaction failed',
-                        'description': 'Try again!',
-                        'category': 'error'
-                    });
-                }
-            } else if (fromChainId.category == "FUELVM") {
-                if (receiver == '') {
-                    notify.push({
-                        'title': 'Receiving wallet not connected!',
-                        'description': 'Connect your MetaMask Wallet',
-                        'category': 'error'
-                    });
-                    this.bridging = false;
-                    return;
-                }
-
-                const transaction = await bridgeFUELVM(
-                    fromChainId,
-                    destChain,
-                    this.bridge.currency,
-                    this.$toWei((Number(this.bridge.amount) / 1_000_000_000)),
-                    receiver
-                );
-
-                if (transaction) {
-                    notify.push({
-                        'title': 'Transaction sent',
-                        'description': 'View transaction at the transactions page!',
-                        'category': 'success',
-                        'linkTitle': 'View Trx',
-                        'linkUrl': '/transactions'
-                    });
-                } else {
-                    notify.push({
-                        'title': 'Transaction failed',
-                        'description': 'Try again!',
-                        'category': 'error'
-                    });
-                }
+                notify.push({
+                    'title': 'Transaction failed',
+                    'description': 'Try again!',
+                    'category': 'error'
+                });
             }
 
             this.bridging = false;

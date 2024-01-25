@@ -6,7 +6,7 @@ export interface Message {
     status: Status;
     fromTrxHash: string;
     toTrxHash?: string;
-    fee: number;
+    fee: string;
     feeToken: string;
     sequenceNumber: number;
     fromChainId: 80001 | 97 | 462;

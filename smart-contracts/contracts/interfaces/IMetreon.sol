@@ -8,7 +8,7 @@ interface IMetreon {
     error InsufficientGasFee();
     error InvalidMessage();
 
-    event SendMessage(
+    event Dispatch(
         bytes32 messageId,
         uint256 fee,
         address feeToken,

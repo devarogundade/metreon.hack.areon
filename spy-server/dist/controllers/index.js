@@ -25,14 +25,14 @@ class Controller {
         });
         return { status: 200 };
     }
-    allMessages(take, skip, query) {
+    allMessages(page, take, query) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const count = yield schemas_1.default.countDocuments();
                 const data = yield schemas_1.default.find(query)
                     .limit(take * 1)
-                    .skip((skip - 1) * take)
-                    .sort({ dispatchTimestamp: 'desc' });
+                    .skip((page - 1) * take)
+                    .sort({ initializedTimestamp: 'desc' });
                 return {
                     status: 200,
                     data: {

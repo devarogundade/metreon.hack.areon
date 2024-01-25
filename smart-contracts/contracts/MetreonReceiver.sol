@@ -12,6 +12,8 @@ import {Context} from "@openzeppelin/contracts/utils/Context.sol";
 abstract contract MetreonReceiver is IMessageReceiver, Context, Ownable {
     address private immutable _metreon;
 
+    mapping(bytes32 => bool) private _executed;
+
     constructor(address metreon_) Ownable() {
         if (metreon_ == address(0)) revert InvalidRouter(address(0));
         _metreon = metreon_;
@@ -25,12 +27,18 @@ abstract contract MetreonReceiver is IMessageReceiver, Context, Ownable {
         Data.IncomingMessage calldata message,
         address tokenPool
     ) external virtual override onlyMetreon {
-        _metreonReceive(message);
+        if (_executed[message.messageId]) {
+            revert AlreadyExecuted(message.messageId);
+        }
 
         if (message.tokens.length > 0) {
             IPool pool = IPool(tokenPool);
             pool.withdrawTo(address(this), message);
         }
+
+        _metreonReceive(message);
+
+        _executed[message.messageId] = true;
     }
 
     function _metreonReceive(

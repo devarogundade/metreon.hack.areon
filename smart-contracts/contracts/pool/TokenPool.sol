@@ -27,7 +27,7 @@ contract TokenPool is Pool {
                 token.tokenId
             );
 
-            if (tokenId == address(0)) {
+            if (tokenId == 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE) {
                 payable(to).transfer(token.amount);
             } else {
                 IERC20 tokenContract = IERC20(tokenId);

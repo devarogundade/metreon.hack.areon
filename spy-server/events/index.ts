@@ -12,70 +12,67 @@ const Metreon = require('../abis/Metreon.json');
 class Index {
     constructor() { }
 
-    startListening() {
-        const job = new CronJob('*/10 * * * * *', async function () {
+    listen() {
+        this.startListening(Config.AreonTestnet as 462);
+    }
+
+    private startListening(chainId: 80001 | 97 | 462) {
+        const job = new CronJob('*/20 * * * * *', async function () {
             try {
-                const data = fs.readFileSync('events/config.index.json', "utf-8");
+                const data = fs.readFileSync(`events/config${chainId}.index.json`, "utf-8");
                 const json = JSON.parse(data);
 
-                let fromBlock: number | null = json.fromBlocks[462];
-
-                console.log(`Indexer: Running Job from ${fromBlock}`);
-
-                const web3 = new Web3(Config.rpcs[462]);
-                const metreon = new web3.eth.Contract(Metreon.abi, Config.metreonIds[462]);
+                const web3 = new Web3(Config.rpcs[chainId]);
+                const metreon = new web3.eth.Contract(Metreon.abi, Config.metreonIds[chainId]);
 
                 const latestBlock = await web3.eth.getBlockNumber();
-                console.log('Indexer: Lastest Block ', latestBlock);
+
+                const fromBlock: number | null = json.fromBlocks[chainId];
+                console.log(`Indexer: Running Job from ${fromBlock} to ${latestBlock}`);
 
                 if (fromBlock == latestBlock) return;
 
-                if (fromBlock == null) { fromBlock = latestBlock; }
-
-                metreon.getPastEvents('SendMessage', { filter: {}, fromBlock: fromBlock, toBlock: 'latest' }, function (error: Error, events) {
-                    console.log('Indexer: Error ', error);
-                    console.log('Indexer: Events ', events);
-
-                    if (error) {
-                        console.log('Index: startListening ', error);
-                        return;
-                    }
-
-                    const messages: Message[] = [];
-
-                    for (let index = 0; index < events.length; index++) {
-                        const event = events[index];
-
-                        const message: Message = {
-                            messageId: event.returnValues.messageId,
-                            status: Status.INITIATED,
-                            fromTrxHash: event.transactionHash,
-                            fee: event.returnValues.fee,
-                            feeToken: event.returnValues.feeToken,
-                            sequenceNumber: event.returnValues.sequenceNumber,
-                            fromChainId: 462,
-                            toChainId: event.returnValues.toChainId,
-                            sender: event.returnValues.sender,
-                            receiver: event.returnValues.receiver,
-                            tokens: event.returnValues.tokens,
-                            payMaster: event.returnValues.payMaster,
-                            payload: event.returnValues.payload
-                        };
-
-                        messages.push(message);
-
-                        controller.processMessages(messages);
-                    }
-                });
-
-                fs.writeFileSync('events/config.index.json', JSON.stringify(
-                    {
-                        fromBlocks: {
-                            462: latestBlock
+                if (fromBlock) {
+                    metreon.getPastEvents('Dispatch', { fromBlock, toBlock: 'latest' }, function (error: Error, events) {
+                        if (error) {
+                            console.log('Index: startListening ', error);
+                            return;
                         }
-                    },
-                    null, 1
-                ));
+
+                        const messages: Message[] = [];
+
+                        for (let index = 0; index < events.length; index++) {
+                            const event = events[index];
+
+                            const message: Message = {
+                                messageId: event.returnValues.messageId,
+                                status: Status.INITIATED,
+                                fromTrxHash: event.transactionHash,
+                                fee: event.returnValues.fee,
+                                feeToken: event.returnValues.feeToken,
+                                sequenceNumber: event.returnValues.sequenceNumber,
+                                fromChainId: chainId as 80001 | 97 | 462,
+                                toChainId: event.returnValues.toChainId as 80001 | 97 | 462,
+                                sender: event.returnValues.sender,
+                                receiver: event.returnValues.receiver,
+                                tokens: event.returnValues.tokens,
+                                payMaster: event.returnValues.payMaster,
+                                payload: event.returnValues.payload
+                            };
+
+                            messages.push(message);
+
+                            controller.processMessages(messages);
+                        }
+                    });
+                }
+
+                fs.writeFileSync(`events/config${chainId}.index.json`,
+                    `{
+                    "fromBlocks": {
+                        "${chainId}": ${latestBlock}
+                    }
+                }`);
 
                 console.log(`Indexer: Ending Job at ${latestBlock}`);
             } catch (error) {

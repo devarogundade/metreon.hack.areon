@@ -26,10 +26,10 @@ contract('MetreonConfig', async accounts => {
     //     const config = await MetreonConfig.deployed();
 
     //     const trx = await config.updateSupportedTokens([
-    //         "0x3d269Ea3641fB768Ce7069BB9b73fccc880b9Da6",
-    //         "0xd331af3CB5894A90C328eF4F527a032b53a5D8bE",
-    //         "0xE1a3C9201ffFc2b4333A80165C4b0dcef715224a",
-    //         "0x5c5e5A1E1eb69C2A271a5576c807B2eB5b6fD982"
+    //         "0x85A637834544Fc824a4A2106Dbd88a586C55b6cf",
+    //         "0x15E6Ab3269a6D89Ea685714Cc565BfC833c14284",
+    //         "0x37D9e2f7E32e57d5590De149a04F49a5964b6FF1",
+    //         "0x10c980C92962c835E21F0A5B33042E5104B0Bba1"
     //     ]);
 
     //     console.log(trx.tx);
@@ -55,13 +55,13 @@ contract('MetreonConfig', async accounts => {
     //     console.log(trx.tx);
     // });
 
-    // it('Set Supported Token Areon Testnet', async () => {
+    // it('Set Supported Token BSC Testnet', async () => {
     //     const config = await MetreonConfig.deployed();
 
     //     const trx = await config.updateSupportedTokens([
-    //         "0xB8E8eA64b90757bdBECf52Da42a62EC19d5D3309",
-    //         "0xD0D9E5fb25a93Fcda3F64552A3a384Ec8B12e2B3",
-    //         "0xC7Cd3F55b10b6385B9230BC4e8BF4f38010C13c6"
+    //         "0xd15E42aeF1E2Fb06233B31Ae7E40d3f92cfEa945",
+    //         "0x51b04D3F7CcA027089eD0f277318048928a577A0",
+    //         "0x13DCE922Ee45FcA54BC8526A1342334A1d3BdB09"
     //     ]);
 
     //     console.log(trx.tx);

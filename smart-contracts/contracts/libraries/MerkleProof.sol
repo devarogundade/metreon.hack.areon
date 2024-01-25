@@ -4,10 +4,10 @@ pragma solidity ^0.8.17;
 library MerkleProof {
     /// @notice Leaf domain separator, should be used as the first 32 bytes of a leaf's preimage.
     bytes32 internal constant LEAF_DOMAIN_SEPARATOR =
-        0x0000000000000000000000000000000000000000000000000000000000000000;
+        0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE000000000000000000000000;
     /// @notice Internal domain separator, should be used as the first 32 bytes of an internal node's preiimage.
     bytes32 internal constant INTERNAL_DOMAIN_SEPARATOR =
-        0x0000000000000000000000000000000000000000000000000000000000000001;
+        0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE000000000000000000000001;
 
     uint256 internal constant MAX_NUM_HASHES = 256;
 

@@ -1,21 +1,19 @@
-import axios from 'axios'
+import axios from 'axios';
 
-const endpoint = 'https://node.swaycall.space/api'
+const endpoint = 'https://metreonhack.azurewebsites.net';
 
-export async function fetchMessages(addresses, page) {
-    const data1 = addresses.toString()
-
+export async function fetchMessages(address, page) {
     try {
-        const response = await axios.get(`${endpoint}/forcontracts?slot1B256s=${data1}&page=${page}`)
-        return response.data
+        const response = await axios.get(`${endpoint}/messages?page=${page}&payload=${address}`);
+        return response.data;
     } catch (error) {
         console.error(error);
-        return []
+        return [];
     }
 }
 
 export function fineHash(hash) {
-    if (hash == '') return '- - - - -'
-    if (hash.length < 20) return hash
-    return hash.substring(0, 20) + '...'
+    if (hash == '') return '- - - - -';
+    if (hash.length < 20) return hash;
+    return hash.substring(0, 20) + '...';
 }

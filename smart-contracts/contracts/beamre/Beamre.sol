@@ -17,6 +17,10 @@ contract Beamre is MetreonReceiver {
         _metreon = IMetreon(getMetreon());
     }
 
+    function setContract(uint256 chainId, address contractId) external {
+        _contracts[chainId] = contractId;
+    }
+
     function bridgeToken(
         uint256 toChainId,
         Data.Token[] memory tokens

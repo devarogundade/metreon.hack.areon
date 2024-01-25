@@ -18,27 +18,27 @@ const Utils = {
     currencies: function () {
         return [
             // usdt
-            { id: 1, code: 1, chain: 97, name: "Tether USD", symbol: "USDT", image: "/images/usdt.png", address: '0x664698266Ba332Cb2D30D9FE4f8461577c8119Af' },
-            { id: 2, code: 1, chain: 80001, name: "Tether USD", symbol: "USDT", image: "/images/usdt.png", address: '0x1b6c979548033dFfC88cEe698c9d3E83c3b0669d' },
-            { id: 3, code: 1, chain: 462, name: "Tether USD", symbol: "USDT", image: "/images/usdt.png", address: '0x96b77ce29b4b442be029f09df33258e2b513909c5086da08c4675e0a39deeb73' },
+            { id: 1, code: 1, chain: 97, name: "Tether USD", symbol: "USDT", image: "/images/usdt.png", address: '0xd15E42aeF1E2Fb06233B31Ae7E40d3f92cfEa945' },
+            { id: 2, code: 1, chain: 80001, name: "Tether USD", symbol: "USDT", image: "/images/usdt.png", address: '' },
+            { id: 3, code: 1, chain: 462, name: "Tether USD", symbol: "USDT", image: "/images/usdt.png", address: '0x85A637834544Fc824a4A2106Dbd88a586C55b6cf' },
 
             // usdc
-            { id: 4, code: 2, chain: 97, name: "Circle USD", symbol: "USDC", image: "/images/usdc.png", address: '0x2C7EBAAAE211B1CD646e982Dd4E2cC2079B8BF21' },
-            { id: 5, code: 2, chain: 80001, name: "Circle USD", symbol: "USDC", image: "/images/usdc.png", address: '0xc189e0F0cDC4023B392874f4a1B2797b44f21fe0' },
-            { id: 6, code: 2, chain: 462, name: "Circle USD", symbol: "USDC", image: "/images/usdc.png", address: '0xd6738e50fb344eff04b9ee5890c5faa4cef831c7c61216a3be3c8eebc39ff8c1' },
+            { id: 4, code: 2, chain: 97, name: "Circle USD", symbol: "USDC", image: "/images/usdc.png", address: '0x51b04D3F7CcA027089eD0f277318048928a577A0' },
+            { id: 5, code: 2, chain: 80001, name: "Circle USD", symbol: "USDC", image: "/images/usdc.png", address: '' },
+            { id: 6, code: 2, chain: 462, name: "Circle USD", symbol: "USDC", image: "/images/usdc.png", address: '0x15E6Ab3269a6D89Ea685714Cc565BfC833c14284' },
 
             // area
-            { id: 7, code: 3, chain: 97, name: "Wrapped Areon", symbol: "WAREA", image: "/images/areon.png", address: '0x74E993319384BE2bB2f7a3D3e7477d85313EF54B' },
-            { id: 8, code: 3, chain: 80001, name: "Wrapped Areon", symbol: "WAREA", image: "/images/areon.png", address: '0x1d9B28e3ceC5e50A62F6a1512d2aD1252892e078' },
-            { id: 9, code: 3, chain: 462, name: "Areon", symbol: "AREA", image: "/images/areon.png", address: '0x3abf11c2ff4e6b90369bae40e67e6292aba81034a53017639b8f2dcfcac739f1' },
+            { id: 7, code: 3, chain: 97, name: "Wrapped Areon", symbol: "WAREA", image: "/images/areon.png", address: '0x13DCE922Ee45FcA54BC8526A1342334A1d3BdB09' },
+            { id: 8, code: 3, chain: 80001, name: "Wrapped Areon", symbol: "WAREA", image: "/images/areon.png", address: '' },
+            { id: 9, code: 3, chain: 462, name: "Areon", symbol: "AREA", image: "/images/areon.png", address: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE', isNative: true },
 
             // bnb
-            { id: 10, code: 4, chain: 97, name: "BNB", symbol: "BNB", image: "/images/bsc.png", address: '0x74E993319384BE2bB2f7a3D3e7477d85313EF54B' },
-            { id: 11, code: 4, chain: 462, name: "Wrapped BNB", symbol: "WBNB", image: "/images/bsc.png", address: '0x3abf11c2ff4e6b90369bae40e67e6292aba81034a53017639b8f2dcfcac739f1' },
+            { id: 10, code: 4, chain: 97, name: "BNB", symbol: "BNB", image: "/images/bsc.png", address: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE', isNative: true },
+            { id: 11, code: 4, chain: 462, name: "Wrapped BNB", symbol: "WBNB", image: "/images/bsc.png", address: '0x37D9e2f7E32e57d5590De149a04F49a5964b6FF1' },
 
-            // bnb
-            { id: 12, code: 5, chain: 80001, name: "Polygon", symbol: "MATIC", image: "/images/polygon.png", address: '0x74E993319384BE2bB2f7a3D3e7477d85313EF54B' },
-            { id: 13, code: 5, chain: 462, name: "Wrapped Polygon", symbol: "WMATIC", image: "/images/polugon.png", address: '0x3abf11c2ff4e6b90369bae40e67e6292aba81034a53017639b8f2dcfcac739f1' },
+            // matic
+            { id: 12, code: 5, chain: 80001, name: "Polygon", symbol: "MATIC", image: "/images/polygon.png", address: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE', isNative: true },
+            { id: 13, code: 5, chain: 462, name: "Wrapped Polygon", symbol: "WMATIC", image: "/images/polugon.png", address: '0x10c980C92962c835E21F0A5B33042E5104B0Bba1' },
         ];
     },
     currenciesLP: function (id) {
@@ -48,19 +48,16 @@ const Utils = {
         return this.currencies().filter(currency => currency.chain == chainId);
     },
     exactCurrency: function (chainId, code) {
-        return this.currencies().filter(currency =>
-            currency.chain == chainId &&
-            currency.code == code
-        )[0];
+        return this.currencies().filter(currency => currency.chain == chainId && currency.code == code)[0];
     },
     currencyAddress: function (address) {
         return this.currencies().find(currency => currency.address.toLowerCase() == address.toLowerCase());
     },
-    supernovaIds: function () {
+    beamreIds: function () {
         return {
-            462: '0x1b6c979548033dFfC88cEe698c9d3E83c3b0669d',
-            97: '0x7dBd5B60c272cf5a712412259F7765C147F1cF26',
-            80001: '0x9D35Cb69932f465064C9C73adB0a47e4062016fa',
+            462: '0xd7B3f89f7eF2eeDFFde3Fe033439878417ddd470',
+            97: '0x345B1459B1115Fa2428246B2f3C3207F643A5bbE',
+            80001: '',
         };
     },
     toDate: function (timestamp) {
