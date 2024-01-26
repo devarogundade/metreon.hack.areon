@@ -312,7 +312,7 @@ export default {
             if (receiver == '') {
                 notify.push({
                     'title': 'Receiving wallet not connected!',
-                    'description': 'Connect your Fuel Wallet',
+                    'description': 'Connect your Web3 Wallet',
                     'category': 'error'
                 });
                 this.bridging = false;

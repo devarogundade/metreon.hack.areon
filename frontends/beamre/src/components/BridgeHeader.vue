@@ -48,12 +48,6 @@
                             <p v-else>{{ fineAddress($store.state.account) }}</p>
                         </div>
                     </div>
-
-                    <div class="wallet fuelwallet" @click="auth" v-if="$store.state.interested">
-                        <FuelWalletIcon />
-                        <p v-if="$store.state.account == ''">Connect</p>
-                        <p v-else>{{ fineAddress($store.state.account) }}</p>
-                    </div>
                 </div>
             </header>
         </div>
@@ -63,7 +57,6 @@
 <script setup>
 import SupernovaLogo from '../components/icons/SupernovaLogo.vue';
 import MetaMaskIcon from '../components/icons/MetaMaskIcon.vue';
-import FuelWalletIcon from '../components/icons/FuelWalletIcon.vue';
 import SemanticGreen from '../components/icons/SemanticGreen.vue';
 import WalletDownIcon from '../components/icons/WalletDownIcon.vue';
 </script>

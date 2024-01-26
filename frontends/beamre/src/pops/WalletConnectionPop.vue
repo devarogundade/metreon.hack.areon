@@ -24,20 +24,8 @@
                     </div>
                 </div>
 
-                <div class="fuel_wallets">
-                    <div class="fuel_wallets_title">
-                        <p>Fuel wallets</p>
-                        <div class="active_dot"></div>
-                    </div>
-
-                    <div class="wallet fuelwallet">
-                        <FuelWalletIcon />
-                        <p>Fuel Wallet</p>
-                    </div>
-                </div>
-
                 <div class="notice">
-                    <p>Don't have a Fuel Wallet?, <a href="" target="_blank">Install Here</a></p>
+                    <p>Don't have a Areon Wallet?, <a href="" target="_blank">Install Here</a></p>
                 </div>
             </div>
         </div>
