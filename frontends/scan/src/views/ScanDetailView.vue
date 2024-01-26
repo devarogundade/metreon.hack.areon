@@ -133,7 +133,7 @@
                             </tr>
                         </tbody>
                     </div>
-                    <div class="tbody">
+                    <div class="tbody" v-if="event.tokens.length > 0">
                         <tbody>
                             <tr>
                                 <td>Tokens transferred:</td>
