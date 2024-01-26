@@ -3,23 +3,24 @@ pragma solidity ^0.8.17;
 
 import {Hash} from "./libraries/Hash.sol";
 import {Data} from "./libraries/Data.sol";
+import {IPool} from "./interfaces/Ipool.sol";
 import {IMetreon} from "./interfaces/IMetreon.sol";
+import {IMessageReceiver} from "./interfaces/IMessageReceiver.sol";
 import {IMetreonPay} from "./interfaces/IMetreonPay.sol";
 import {IMetreonConfig} from "./interfaces/IMetreonConfig.sol";
 
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import {Context} from "@openzeppelin/contracts/utils/Context.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
-contract Metreon is IMetreon, Context {
-    uint256 private _msgIndex;
+contract Metreon is IMetreon, Ownable {
+    uint256 private _sequence;
     IMetreonPay private _pay;
     IMetreonConfig private _config;
-    address private _tokenPool;
+    mapping(bytes32 => bool) private _executed;
 
-    constructor(address pay_, address config_, address tokenPool_) {
+    constructor(address pay_, address config_) Ownable() {
         _pay = IMetreonPay(pay_);
         _config = IMetreonConfig(config_);
-        _tokenPool = tokenPool_;
     }
 
     function isChainSupported(uint256 chainId) external view returns (bool) {
@@ -47,10 +48,11 @@ contract Metreon is IMetreon, Context {
     }
 
     function sendMessage(
-        Data.OutgoingMessage calldata message
+        Data.OutgoingMessage calldata message,
+        address tokenPool
     ) external payable returns (bytes32) {
         bytes32 combinedMsgIndex = (Hash.addressToBytes32(_msgSender()) << 96) |
-            bytes32(_msgIndex);
+            bytes32(_sequence);
 
         bytes32 messageId = Hash.getHash(message, combinedMsgIndex);
 
@@ -71,12 +73,12 @@ contract Metreon is IMetreon, Context {
             Data.Token memory token = message.tokens[index];
 
             if (token.tokenId == 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE) {
-                payable(_tokenPool).transfer(msg.value);
+                payable(tokenPool).transfer(msg.value);
             } else {
                 IERC20 tokenContract = IERC20(token.tokenId);
                 tokenContract.transferFrom(
                     _msgSender(),
-                    _tokenPool,
+                    tokenPool,
                     token.amount
                 );
             }
@@ -85,8 +87,8 @@ contract Metreon is IMetreon, Context {
         emit Dispatch(
             messageId,
             estimatedFee,
-            address(0), // native coin
-            _msgIndex, // message sequence
+            0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE, // native coin
+            _sequence, // message sequence
             message.toChainId,
             _msgSender(),
             message.receiver,
@@ -95,8 +97,30 @@ contract Metreon is IMetreon, Context {
             message.payload
         );
 
-        _msgIndex++;
+        _sequence++;
 
         return messageId;
+    }
+
+    function postMessage(
+        address receiver,
+        Data.IncomingMessage calldata message,
+        address tokenPool
+    ) external override onlyOwner {
+        if (_executed[message.messageId]) {
+            revert AlreadyExecuted(message.messageId);
+        }
+
+        if (message.tokens.length > 0) {
+            IPool pool = IPool(tokenPool);
+            pool.withdrawTo(receiver, message);
+        }
+
+        IMessageReceiver messageReceiver = IMessageReceiver(receiver);
+        messageReceiver.metreonReceive(message);
+
+        emit PostMessage(message.messageId);
+
+        _executed[message.messageId] = true;
     }
 }

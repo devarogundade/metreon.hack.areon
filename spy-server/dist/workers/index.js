@@ -21,7 +21,7 @@ const web3_1 = __importDefault(require("web3"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const db_config_1 = __importDefault(require("../configs/db.config"));
 dotenv_1.default.config();
-const MetreonReceiver = require('../abis/MetreonReceiver.json');
+const Metreon = require('../abis/Metreon.json');
 // Signing Key and Address
 const handlerEvmKey = process.env.EVM_PRIVATE_KEY;
 var PayMaster;
@@ -59,12 +59,13 @@ class Worker {
                 payMaster: message.payMaster
             };
             const tokenPool = chains_config_1.default.tokenPoolIds[message.toChainId];
-            const metreonReceiver = new web3.eth.Contract(MetreonReceiver.abi, message.receiver);
-            const gas = yield metreonReceiver.methods.metreonReceive(incomingMessage, tokenPool).estimateGas({ from: signer.address });
+            const metreon = new web3.eth.Contract(Metreon.abi, chains_config_1.default.metreonIds[message.toChainId]);
+            console.log(incomingMessage);
+            const gas = yield metreon.methods.postMessage(message.receiver, incomingMessage, tokenPool).estimateGas({ from: signer.address });
             console.log('Gas: ', gas);
             const gasPrice = yield web3.eth.getGasPrice();
             console.log('Gas Price: ', gasPrice);
-            const { transactionHash } = yield metreonReceiver.methods.metreonReceive(incomingMessage, tokenPool).send({
+            const { transactionHash } = yield metreon.methods.postMessage(message.receiver, incomingMessage, tokenPool).send({
                 from: signer.address,
                 gasPrice: gasPrice,
                 gas: gas

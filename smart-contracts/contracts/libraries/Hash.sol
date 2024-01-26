@@ -13,13 +13,13 @@ library Hash {
 
     function getHash(
         Data.OutgoingMessage memory message,
-        bytes32 msgIndex
+        bytes32 sequence
     ) internal pure returns (bytes32) {
         return
             keccak256(
                 abi.encode(
                     MerkleProof.LEAF_DOMAIN_SEPARATOR,
-                    msgIndex,
+                    sequence,
                     message.toChainId,
                     message.receiver,
                     message.payload,

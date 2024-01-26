@@ -8,12 +8,17 @@ import {Context} from "@openzeppelin/contracts/utils/Context.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 abstract contract Pool is IPool, Context, Ownable {
-    constructor() Ownable() {}
+    address private immutable _metreon;
+
+    constructor(address metreon_) Ownable() {
+        if (metreon_ == address(0)) revert InvalidRouter(address(0));
+        _metreon = metreon_;
+    }
 
     function withdrawTo(
         address to,
         Data.IncomingMessage calldata message
-    ) external virtual override onlyOwner {
+    ) external virtual override onlyMetreon {
         _withdrawTo(to, message);
     }
 
@@ -23,4 +28,9 @@ abstract contract Pool is IPool, Context, Ownable {
     ) internal virtual;
 
     error InvalidRouter(address router);
+
+    modifier onlyMetreon() {
+        if (_metreon != _msgSender()) revert InvalidRouter(_msgSender());
+        _;
+    }
 }

@@ -13,7 +13,10 @@ contract Beamre is MetreonReceiver {
     mapping(address => bytes32[]) public _actions;
     mapping(uint256 => address) public _contracts;
 
-    constructor(address metreon_) MetreonReceiver(metreon_) {
+    constructor(
+        address config_,
+        address metreon_
+    ) MetreonReceiver(config_, metreon_) {
         _metreon = IMetreon(getMetreon());
     }
 
@@ -23,7 +26,8 @@ contract Beamre is MetreonReceiver {
 
     function bridgeToken(
         uint256 toChainId,
-        Data.Token[] memory tokens
+        Data.Token[] memory tokens,
+        address tokenPool
     ) external payable {
         Data.OutgoingMessage memory message = Data.OutgoingMessage({
             toChainId: toChainId,
@@ -49,7 +53,7 @@ contract Beamre is MetreonReceiver {
             tokenContract.approve(address(_metreon), token.amount);
         }
 
-        bytes32 messageId = _metreon.sendMessage(message);
+        bytes32 messageId = _metreon.sendMessage(message, tokenPool);
 
         _actions[_msgSender()].push(messageId);
     }
@@ -62,8 +66,12 @@ contract Beamre is MetreonReceiver {
         for (uint256 index = 0; index < message.tokens.length; index++) {
             Data.Token memory token = message.tokens[index];
 
-            IERC20 tokenContract = IERC20(token.tokenId);
-            tokenContract.transfer(receiver, token.amount);
+            if (token.tokenId == 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE) {
+                payable(receiver).transfer(token.amount);
+            } else {
+                IERC20 tokenContract = IERC20(token.tokenId);
+                tokenContract.transfer(receiver, token.amount);
+            }
         }
     }
 }

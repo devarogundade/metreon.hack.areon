@@ -5,6 +5,7 @@ import { CronJob } from 'cron';
 import fs from 'fs';
 import { Message } from "../models/message";
 import { Status } from "../models/status";
+import { Token } from "../models/token";
 
 const controller = new Controller();
 const Metreon = require('../abis/Metreon.json');
@@ -44,6 +45,13 @@ class Index {
                         for (let index = 0; index < events.length; index++) {
                             const event = events[index];
 
+                            const tokens: Token[] = [];
+
+                            for (let index = 0; index < event.returnValues.tokens.length; index++) {
+                                const token = event.returnValues.tokens[index];
+                                tokens.push({ tokenId: token.tokenId, amount: token.amount });
+                            }
+
                             const message: Message = {
                                 messageId: event.returnValues.messageId,
                                 status: Status.INITIATED,
@@ -55,7 +63,7 @@ class Index {
                                 toChainId: event.returnValues.toChainId as 80001 | 97 | 462,
                                 sender: event.returnValues.sender,
                                 receiver: event.returnValues.receiver,
-                                tokens: event.returnValues.tokens,
+                                tokens: tokens,
                                 payMaster: event.returnValues.payMaster,
                                 payload: event.returnValues.payload
                             };

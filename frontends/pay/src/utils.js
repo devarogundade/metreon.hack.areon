@@ -17,9 +17,9 @@ const Utils = {
     },
     metreonPayIds: function () {
         return {
-            97: '0x045e0fbBd0A123Ab28357b620eA04b48284c129e',
+            97: '0x7Ef430F75AF8218EA18036AD93EC50047e8b28DC',
             80001: '',
-            462: '0x4c073cadc2EB9Ad464CC1A9E6Edd93e38Cb07A96'
+            462: '0xEFD1Bc38F84EA3f22DA22E6c0c275F451d72cc04'
         };
     },
     toDate: function (timestamp) {

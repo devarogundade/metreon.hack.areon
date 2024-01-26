@@ -2,8 +2,8 @@
 pragma solidity ^0.8.17;
 
 import {Data} from "./libraries/Data.sol";
-import {IPool} from "./interfaces/Ipool.sol";
 import {IMessageReceiver} from "./interfaces/IMessageReceiver.sol";
+import {IMetreonConfig} from "./interfaces/IMetreonConfig.sol";
 
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
@@ -11,12 +11,12 @@ import {Context} from "@openzeppelin/contracts/utils/Context.sol";
 
 abstract contract MetreonReceiver is IMessageReceiver, Context, Ownable {
     address private immutable _metreon;
+    IMetreonConfig private _config;
 
-    mapping(bytes32 => bool) private _executed;
-
-    constructor(address metreon_) Ownable() {
+    constructor(address config_, address metreon_) Ownable() {
         if (metreon_ == address(0)) revert InvalidRouter(address(0));
         _metreon = metreon_;
+        _config = IMetreonConfig(config_);
     }
 
     function metreonPayMaster() external view override returns (address) {
@@ -24,21 +24,21 @@ abstract contract MetreonReceiver is IMessageReceiver, Context, Ownable {
     }
 
     function metreonReceive(
-        Data.IncomingMessage calldata message,
-        address tokenPool
+        Data.IncomingMessage calldata message
     ) external virtual override onlyMetreon {
-        if (_executed[message.messageId]) {
-            revert AlreadyExecuted(message.messageId);
+        Data.IncomingMessage memory updatedMessage = message;
+
+        for (uint256 index = 0; index < updatedMessage.tokens.length; index++) {
+            updatedMessage.tokens[index] = Data.Token({
+                tokenId: _config.getChainTokenId(
+                    message.fromChainId,
+                    message.tokens[index].tokenId
+                ),
+                amount: message.tokens[index].amount
+            });
         }
 
-        if (message.tokens.length > 0) {
-            IPool pool = IPool(tokenPool);
-            pool.withdrawTo(address(this), message);
-        }
-
-        _metreonReceive(message);
-
-        _executed[message.messageId] = true;
+        _metreonReceive(updatedMessage);
     }
 
     function _metreonReceive(

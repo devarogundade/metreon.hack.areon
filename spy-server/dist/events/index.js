@@ -47,6 +47,11 @@ class Index {
                             const messages = [];
                             for (let index = 0; index < events.length; index++) {
                                 const event = events[index];
+                                const tokens = [];
+                                for (let index = 0; index < event.returnValues.tokens.length; index++) {
+                                    const token = event.returnValues.tokens[index];
+                                    tokens.push({ tokenId: token.tokenId, amount: token.amount });
+                                }
                                 const message = {
                                     messageId: event.returnValues.messageId,
                                     status: status_1.Status.INITIATED,
@@ -58,7 +63,7 @@ class Index {
                                     toChainId: event.returnValues.toChainId,
                                     sender: event.returnValues.sender,
                                     receiver: event.returnValues.receiver,
-                                    tokens: event.returnValues.tokens,
+                                    tokens: tokens,
                                     payMaster: event.returnValues.payMaster,
                                     payload: event.returnValues.payload
                                 };

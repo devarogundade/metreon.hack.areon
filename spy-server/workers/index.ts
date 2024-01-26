@@ -12,7 +12,7 @@ import { Token } from '../models/token';
 
 env.config();
 
-const MetreonReceiver = require('../abis/MetreonReceiver.json');
+const Metreon = require('../abis/Metreon.json');
 
 // Signing Key and Address
 const handlerEvmKey = process.env.EVM_PRIVATE_KEY!!;
@@ -65,18 +65,21 @@ class Worker {
 
         const tokenPool = Config.tokenPoolIds[message.toChainId];
 
-        const metreonReceiver = new web3.eth.Contract(MetreonReceiver.abi, message.receiver);
+        const metreon = new web3.eth.Contract(Metreon.abi, Config.metreonIds[message.toChainId]);
 
-        const gas = await metreonReceiver.methods.metreonReceive(
-            incomingMessage, tokenPool
+        console.log(incomingMessage);
+
+
+        const gas = await metreon.methods.postMessage(
+            message.receiver, incomingMessage, tokenPool
         ).estimateGas({ from: signer.address });
         console.log('Gas: ', gas);
 
         const gasPrice = await web3.eth.getGasPrice();
         console.log('Gas Price: ', gasPrice);
 
-        const { transactionHash } = await metreonReceiver.methods.metreonReceive(
-            incomingMessage, tokenPool
+        const { transactionHash } = await metreon.methods.postMessage(
+            message.receiver, incomingMessage, tokenPool
         ).send({
             from: signer.address,
             gasPrice: gasPrice,

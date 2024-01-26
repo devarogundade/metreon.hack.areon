@@ -26,16 +26,14 @@ contract('MetreonConfig', async accounts => {
     //     const config = await MetreonConfig.deployed();
 
     //     const trx = await config.updateSupportedTokens([
-    //         "0x85A637834544Fc824a4A2106Dbd88a586C55b6cf",
-    //         "0x15E6Ab3269a6D89Ea685714Cc565BfC833c14284",
-    //         "0x37D9e2f7E32e57d5590De149a04F49a5964b6FF1",
-    //         "0x10c980C92962c835E21F0A5B33042E5104B0Bba1"
+    //         "0x6Ad70B09ab3e4aB416F6D48D3F77Fbc2b07f0C0e",
+    //         "0x95a8ca97Eb9DB7dE25D0A8D2F5eea6AB5123d3c0",
+    //         "0xE52Fe45e9a911198C95883C82e3580A9aadF0C7e",
+    //         "0xA2c51C566875836874308FAAa86e37Ac4c19e545"
     //     ]);
 
     //     console.log(trx.tx);
     // });
-
-
 
     // ========= BSC ========= //
 
@@ -59,9 +57,9 @@ contract('MetreonConfig', async accounts => {
     //     const config = await MetreonConfig.deployed();
 
     //     const trx = await config.updateSupportedTokens([
-    //         "0xd15E42aeF1E2Fb06233B31Ae7E40d3f92cfEa945",
-    //         "0x51b04D3F7CcA027089eD0f277318048928a577A0",
-    //         "0x13DCE922Ee45FcA54BC8526A1342334A1d3BdB09"
+    //         "0xFE57951e4aA44B274e681678efcf2dFB9e9B34aA",
+    //         "0x1cf6234A8aEE6Ec0B28Fac9Abdd2A9ddB15d0F85",
+    //         "0x201761F8bA8bfF62345594Ee7cbc280Ae2DA19AC"
     //     ]);
 
     //     console.log(trx.tx);

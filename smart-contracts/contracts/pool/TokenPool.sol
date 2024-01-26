@@ -11,7 +11,7 @@ import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 contract TokenPool is Pool {
     IMetreonConfig private _config;
 
-    constructor(address config_) Pool() {
+    constructor(address config_, address metreon_) Pool(metreon_) {
         _config = IMetreonConfig(config_);
     }
 

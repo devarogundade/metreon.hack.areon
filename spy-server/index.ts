@@ -31,28 +31,28 @@ mongoose.connect(DbConfig.url)
         index.listen();
 
         // test bridge
-        // const controller = new Controller();
-        // controller.processMessages([{
-        //     messageId: '0x01081067a68a47051f742282e0efff746526a7d4f54d0bf95d970f8db283c5e3',
-        //     status: 0,
-        //     fromTrxHash: '0xfdaffb66c27bd4215e4f9e1eedcffa038bfb6daf23e0472c457e9336fa3d4248',
-        //     fee: '640000000000000',
-        //     feeToken: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
-        //     sequenceNumber: 9,
-        //     fromChainId: 462,
-        //     toChainId: 97,
-        //     sender: '0x345B1459B1115Fa2428246B2f3C3207F643A5bbE',
-        //     receiver: '0x345B1459B1115Fa2428246B2f3C3207F643A5bbE',
-        //     tokens: [
-        //         {
-        //             tokenId: '0x85A637834544Fc824a4A2106Dbd88a586C55b6cf',
-        //             amount: '5000000000000000000'
-        //         }
-        //     ],
-        //     payMaster: 1,
-        //     payload: '0x00000000000000000000000060e0a0ead051314e7510ae803334a97f13e6ff21',
-        //     initializedTimestamp: 1706208848
-        // }]);
+        const controller = new Controller();
+        controller.processMessages([{
+            messageId: '0xdc9687b0e72f65543213f1d3bbacd0c860b040b0e516bdc9bd9e3b835febf7ff',
+            status: 0,
+            fromTrxHash: '0x87aaa337be102c874a4551182a67a86c3c0ec8e17a17a1fab237cf4848a3c77e',
+            fee: '640000000000000',
+            feeToken: '0x0000000000000000000000000000000000000000',
+            sequenceNumber: 5,
+            fromChainId: 462,
+            toChainId: 97,
+            sender: '0x5c3bA76382E26b9f3a2d22CB33cb44Ad4b144643',
+            receiver: '0x8347533ec822aA34204776c9D3f910f96abDc939',
+            tokens: [
+                {
+                    tokenId: '0x6Ad70B09ab3e4aB416F6D48D3F77Fbc2b07f0C0e',
+                    amount: '5000000000000000000'
+                }
+            ],
+            payMaster: 1,
+            payload: '0x00000000000000000000000060e0a0ead051314e7510ae803334a97f13e6ff21',
+            initializedTimestamp: 1706227685
+        }]);
     })
     .catch((error: Error) => {
         console.log("Cannot connect to the database!", error);

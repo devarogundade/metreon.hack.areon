@@ -15,8 +15,6 @@ export async function findApp(contractId, chain) {
 
         const payMaster = await receiver.methods.owner().call();
 
-        console.log(payMaster);
-
         return {
             status: 'ok',
             isOwner: payMaster.toLowerCase() == accounts[0].toLowerCase(),
@@ -36,6 +34,8 @@ export async function addApp(contractId, chain, name, image) {
     try {
 
         saveAppContract(contractId, chain.id, name, image);
+
+        return contractId;
 
     } catch (error) {
         console.error(error);

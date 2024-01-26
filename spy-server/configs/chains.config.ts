@@ -3,9 +3,9 @@ const Config = {
     BnbTestnet: 97,
     AreonTestnet: 462,
     metreonIds: {
-        80001: '0x3d269Ea3641fB768Ce7069BB9b73fccc880b9Da6',
-        97: '0x8207EaE49615c6725646f998ba55Fcdcf859d447',
-        462: '0x500C42d6390d64767A7e80905De8B75e82eb44f5'
+        80001: '',
+        97: '0x2810127091972FccEaCdA109876268Cf47D48935',
+        462: '0x7d2B716b9728C2cb03d44aB2e1b7f83ddb24e6c1'
     },
     rpcs: {
         80001: 'https://rpc.ankr.com/polygon_mumbai',
@@ -16,9 +16,9 @@ const Config = {
         462: 'wss://testnet-ws.areon.network'
     },
     tokenPoolIds: {
-        80001: '0x8851e6DE291C1Be7acBAc56Bacd271b2c35CE9cE',
-        97: '0x06E333dFADb83A8AF612f52A2A8C7A95B2C91D3c',
-        462: '0x2214E7B27D352ae5cB38fcE0BA26fa2A85091f6b'
+        80001: '',
+        97: '0xe7D634e1C16ef28cc6e9ff3201499fDC288A963E',
+        462: '0x77dC42C576a9f2BEA54cAf996333C87b62aac9F1'
     }
 };
 

@@ -85,7 +85,8 @@
                             <div class="app_funding_left">
                                 <div class="app_funding_balance">
                                     <p>Funding balance</p>
-                                    <h3>{{ $toMoney($fromWei(app.balance)) }} {{ $chain(app.chainId).symbol }}</h3>
+                                    <h3>{{ $toMoney($fromWei(app.balance)) }} / {{ $fromWei('100000000000000000000') }} {{
+                                        $chain(app.chainId).symbol }}</h3>
                                 </div>
                                 <div class="app_funding_progress">
                                     <div :style="{ width: Number($fromWei(app.balance) / $fromWei('100000000000000000000')) * 100 + '% !important' }"

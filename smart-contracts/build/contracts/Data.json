@@ -15,15 +15,15 @@
     "absolutePath": "project:/contracts/libraries/Data.sol",
     "exportedSymbols": {
       "Data": [
-        2006
+        2123
       ]
     },
-    "id": 2007,
+    "id": 2124,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1967,
+        "id": 2084,
         "literals": [
           "solidity",
           "^",
@@ -40,9 +40,9 @@
         "contractDependencies": [],
         "contractKind": "library",
         "fullyImplemented": true,
-        "id": 2006,
+        "id": 2123,
         "linearizedBaseContracts": [
-          2006
+          2123
         ],
         "name": "Data",
         "nameLocation": "69:4:15",
@@ -50,17 +50,17 @@
         "nodes": [
           {
             "canonicalName": "Data.PayMaster",
-            "id": 1970,
+            "id": 2087,
             "members": [
               {
-                "id": 1968,
+                "id": 2085,
                 "name": "SENDER",
                 "nameLocation": "107:6:15",
                 "nodeType": "EnumValue",
                 "src": "107:6:15"
               },
               {
-                "id": 1969,
+                "id": 2086,
                 "name": "METREON_PAY",
                 "nameLocation": "124:11:15",
                 "nodeType": "EnumValue",
@@ -74,16 +74,16 @@
           },
           {
             "canonicalName": "Data.Token",
-            "id": 1975,
+            "id": 2092,
             "members": [
               {
                 "constant": false,
-                "id": 1972,
+                "id": 2089,
                 "mutability": "mutable",
                 "name": "tokenId",
                 "nameLocation": "182:7:15",
                 "nodeType": "VariableDeclaration",
-                "scope": 1975,
+                "scope": 2092,
                 "src": "174:15:15",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -92,7 +92,7 @@
                   "typeString": "address"
                 },
                 "typeName": {
-                  "id": 1971,
+                  "id": 2088,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "174:7:15",
@@ -106,12 +106,12 @@
               },
               {
                 "constant": false,
-                "id": 1974,
+                "id": 2091,
                 "mutability": "mutable",
                 "name": "amount",
                 "nameLocation": "208:6:15",
                 "nodeType": "VariableDeclaration",
-                "scope": 1975,
+                "scope": 2092,
                 "src": "200:14:15",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -120,7 +120,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 1973,
+                  "id": 2090,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "200:7:15",
@@ -135,22 +135,22 @@
             "name": "Token",
             "nameLocation": "157:5:15",
             "nodeType": "StructDefinition",
-            "scope": 2006,
+            "scope": 2123,
             "src": "150:72:15",
             "visibility": "public"
           },
           {
             "canonicalName": "Data.IncomingMessage",
-            "id": 1991,
+            "id": 2108,
             "members": [
               {
                 "constant": false,
-                "id": 1977,
+                "id": 2094,
                 "mutability": "mutable",
                 "name": "messageId",
                 "nameLocation": "272:9:15",
                 "nodeType": "VariableDeclaration",
-                "scope": 1991,
+                "scope": 2108,
                 "src": "264:17:15",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -159,7 +159,7 @@
                   "typeString": "bytes32"
                 },
                 "typeName": {
-                  "id": 1976,
+                  "id": 2093,
                   "name": "bytes32",
                   "nodeType": "ElementaryTypeName",
                   "src": "264:7:15",
@@ -172,12 +172,12 @@
               },
               {
                 "constant": false,
-                "id": 1979,
+                "id": 2096,
                 "mutability": "mutable",
                 "name": "fromChainId",
                 "nameLocation": "300:11:15",
                 "nodeType": "VariableDeclaration",
-                "scope": 1991,
+                "scope": 2108,
                 "src": "292:19:15",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -186,7 +186,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 1978,
+                  "id": 2095,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "292:7:15",
@@ -199,12 +199,12 @@
               },
               {
                 "constant": false,
-                "id": 1981,
+                "id": 2098,
                 "mutability": "mutable",
                 "name": "sender",
                 "nameLocation": "330:6:15",
                 "nodeType": "VariableDeclaration",
-                "scope": 1991,
+                "scope": 2108,
                 "src": "322:14:15",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -213,7 +213,7 @@
                   "typeString": "address"
                 },
                 "typeName": {
-                  "id": 1980,
+                  "id": 2097,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "322:7:15",
@@ -227,12 +227,12 @@
               },
               {
                 "constant": false,
-                "id": 1983,
+                "id": 2100,
                 "mutability": "mutable",
                 "name": "payload",
                 "nameLocation": "353:7:15",
                 "nodeType": "VariableDeclaration",
-                "scope": 1991,
+                "scope": 2108,
                 "src": "347:13:15",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -241,7 +241,7 @@
                   "typeString": "bytes"
                 },
                 "typeName": {
-                  "id": 1982,
+                  "id": 2099,
                   "name": "bytes",
                   "nodeType": "ElementaryTypeName",
                   "src": "347:5:15",
@@ -254,45 +254,45 @@
               },
               {
                 "constant": false,
-                "id": 1987,
+                "id": 2104,
                 "mutability": "mutable",
                 "name": "tokens",
                 "nameLocation": "379:6:15",
                 "nodeType": "VariableDeclaration",
-                "scope": 1991,
+                "scope": 2108,
                 "src": "371:14:15",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_array$_t_struct$_Token_$1975_storage_$dyn_storage_ptr",
+                  "typeIdentifier": "t_array$_t_struct$_Token_$2092_storage_$dyn_storage_ptr",
                   "typeString": "struct Data.Token[]"
                 },
                 "typeName": {
                   "baseType": {
-                    "id": 1985,
+                    "id": 2102,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 1984,
+                      "id": 2101,
                       "name": "Token",
                       "nameLocations": [
                         "371:5:15"
                       ],
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 1975,
+                      "referencedDeclaration": 2092,
                       "src": "371:5:15"
                     },
-                    "referencedDeclaration": 1975,
+                    "referencedDeclaration": 2092,
                     "src": "371:5:15",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Token_$1975_storage_ptr",
+                      "typeIdentifier": "t_struct$_Token_$2092_storage_ptr",
                       "typeString": "struct Data.Token"
                     }
                   },
-                  "id": 1986,
+                  "id": 2103,
                   "nodeType": "ArrayTypeName",
                   "src": "371:7:15",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_array$_t_struct$_Token_$1975_storage_$dyn_storage_ptr",
+                    "typeIdentifier": "t_array$_t_struct$_Token_$2092_storage_$dyn_storage_ptr",
                     "typeString": "struct Data.Token[]"
                   }
                 },
@@ -300,36 +300,36 @@
               },
               {
                 "constant": false,
-                "id": 1990,
+                "id": 2107,
                 "mutability": "mutable",
                 "name": "payMaster",
                 "nameLocation": "406:9:15",
                 "nodeType": "VariableDeclaration",
-                "scope": 1991,
+                "scope": 2108,
                 "src": "396:19:15",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_enum$_PayMaster_$1970",
+                  "typeIdentifier": "t_enum$_PayMaster_$2087",
                   "typeString": "enum Data.PayMaster"
                 },
                 "typeName": {
-                  "id": 1989,
+                  "id": 2106,
                   "nodeType": "UserDefinedTypeName",
                   "pathNode": {
-                    "id": 1988,
+                    "id": 2105,
                     "name": "PayMaster",
                     "nameLocations": [
                       "396:9:15"
                     ],
                     "nodeType": "IdentifierPath",
-                    "referencedDeclaration": 1970,
+                    "referencedDeclaration": 2087,
                     "src": "396:9:15"
                   },
-                  "referencedDeclaration": 1970,
+                  "referencedDeclaration": 2087,
                   "src": "396:9:15",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_enum$_PayMaster_$1970",
+                    "typeIdentifier": "t_enum$_PayMaster_$2087",
                     "typeString": "enum Data.PayMaster"
                   }
                 },
@@ -339,22 +339,22 @@
             "name": "IncomingMessage",
             "nameLocation": "237:15:15",
             "nodeType": "StructDefinition",
-            "scope": 2006,
+            "scope": 2123,
             "src": "230:193:15",
             "visibility": "public"
           },
           {
             "canonicalName": "Data.OutgoingMessage",
-            "id": 2005,
+            "id": 2122,
             "members": [
               {
                 "constant": false,
-                "id": 1993,
+                "id": 2110,
                 "mutability": "mutable",
                 "name": "toChainId",
                 "nameLocation": "473:9:15",
                 "nodeType": "VariableDeclaration",
-                "scope": 2005,
+                "scope": 2122,
                 "src": "465:17:15",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -363,7 +363,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 1992,
+                  "id": 2109,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "465:7:15",
@@ -376,12 +376,12 @@
               },
               {
                 "constant": false,
-                "id": 1995,
+                "id": 2112,
                 "mutability": "mutable",
                 "name": "receiver",
                 "nameLocation": "501:8:15",
                 "nodeType": "VariableDeclaration",
-                "scope": 2005,
+                "scope": 2122,
                 "src": "493:16:15",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -390,7 +390,7 @@
                   "typeString": "address"
                 },
                 "typeName": {
-                  "id": 1994,
+                  "id": 2111,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "493:7:15",
@@ -404,12 +404,12 @@
               },
               {
                 "constant": false,
-                "id": 1997,
+                "id": 2114,
                 "mutability": "mutable",
                 "name": "payload",
                 "nameLocation": "526:7:15",
                 "nodeType": "VariableDeclaration",
-                "scope": 2005,
+                "scope": 2122,
                 "src": "520:13:15",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -418,7 +418,7 @@
                   "typeString": "bytes"
                 },
                 "typeName": {
-                  "id": 1996,
+                  "id": 2113,
                   "name": "bytes",
                   "nodeType": "ElementaryTypeName",
                   "src": "520:5:15",
@@ -431,45 +431,45 @@
               },
               {
                 "constant": false,
-                "id": 2001,
+                "id": 2118,
                 "mutability": "mutable",
                 "name": "tokens",
                 "nameLocation": "552:6:15",
                 "nodeType": "VariableDeclaration",
-                "scope": 2005,
+                "scope": 2122,
                 "src": "544:14:15",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_array$_t_struct$_Token_$1975_storage_$dyn_storage_ptr",
+                  "typeIdentifier": "t_array$_t_struct$_Token_$2092_storage_$dyn_storage_ptr",
                   "typeString": "struct Data.Token[]"
                 },
                 "typeName": {
                   "baseType": {
-                    "id": 1999,
+                    "id": 2116,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 1998,
+                      "id": 2115,
                       "name": "Token",
                       "nameLocations": [
                         "544:5:15"
                       ],
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 1975,
+                      "referencedDeclaration": 2092,
                       "src": "544:5:15"
                     },
-                    "referencedDeclaration": 1975,
+                    "referencedDeclaration": 2092,
                     "src": "544:5:15",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Token_$1975_storage_ptr",
+                      "typeIdentifier": "t_struct$_Token_$2092_storage_ptr",
                       "typeString": "struct Data.Token"
                     }
                   },
-                  "id": 2000,
+                  "id": 2117,
                   "nodeType": "ArrayTypeName",
                   "src": "544:7:15",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_array$_t_struct$_Token_$1975_storage_$dyn_storage_ptr",
+                    "typeIdentifier": "t_array$_t_struct$_Token_$2092_storage_$dyn_storage_ptr",
                     "typeString": "struct Data.Token[]"
                   }
                 },
@@ -477,36 +477,36 @@
               },
               {
                 "constant": false,
-                "id": 2004,
+                "id": 2121,
                 "mutability": "mutable",
                 "name": "payMaster",
                 "nameLocation": "579:9:15",
                 "nodeType": "VariableDeclaration",
-                "scope": 2005,
+                "scope": 2122,
                 "src": "569:19:15",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_enum$_PayMaster_$1970",
+                  "typeIdentifier": "t_enum$_PayMaster_$2087",
                   "typeString": "enum Data.PayMaster"
                 },
                 "typeName": {
-                  "id": 2003,
+                  "id": 2120,
                   "nodeType": "UserDefinedTypeName",
                   "pathNode": {
-                    "id": 2002,
+                    "id": 2119,
                     "name": "PayMaster",
                     "nameLocations": [
                       "569:9:15"
                     ],
                     "nodeType": "IdentifierPath",
-                    "referencedDeclaration": 1970,
+                    "referencedDeclaration": 2087,
                     "src": "569:9:15"
                   },
-                  "referencedDeclaration": 1970,
+                  "referencedDeclaration": 2087,
                   "src": "569:9:15",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_enum$_PayMaster_$1970",
+                    "typeIdentifier": "t_enum$_PayMaster_$2087",
                     "typeString": "enum Data.PayMaster"
                   }
                 },
@@ -516,12 +516,12 @@
             "name": "OutgoingMessage",
             "nameLocation": "438:15:15",
             "nodeType": "StructDefinition",
-            "scope": 2006,
+            "scope": 2123,
             "src": "431:165:15",
             "visibility": "public"
           }
         ],
-        "scope": 2007,
+        "scope": 2124,
         "src": "61:538:15",
         "usedErrors": []
       }
@@ -534,7 +534,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.11",
-  "updatedAt": "2024-01-25T22:09:45.908Z",
+  "updatedAt": "2024-01-26T02:47:54.956Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},
