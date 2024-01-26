@@ -17,7 +17,12 @@
                         <tbody>
                             <tr>
                                 <td>Message Id:</td>
-                                <td class="nonce">{{ event.messageId }}</td>
+                                <td>
+                                    <div class="hash">
+                                        <p>{{ event.messageId }}</p>
+                                        <CopyIcon />
+                                    </div>
+                                </td>
                             </tr>
                         </tbody>
                     </div>
@@ -131,6 +136,20 @@
                     <div class="tbody">
                         <tbody>
                             <tr>
+                                <td>Tokens transferred:</td>
+                                <td v-for="token in event.tokens">
+                                    <div class="token">
+                                        <div class="img"><img :src="$currencyAddress(token.tokenId).image" alt=""></div>
+                                        <p>{{ $fromWei(token.amount) }} <span>{{ $currencyAddress(token.tokenId).symbol
+                                        }}</span></p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </div>
+                    <div class="tbody">
+                        <tbody>
+                            <tr>
                                 <td>Message fee:</td>
                                 <td>
                                     <div class="token">
@@ -147,22 +166,36 @@
                     <div class="tbody">
                         <tbody>
                             <tr>
-                                <td>Message Id:</td>
-                                <td>
-                                    <div class="hash">
-                                        <p>{{ event.messageId }}</p>
-                                        <CopyIcon />
-                                    </div>
-                                </td>
+                                <td>Sequence Number:</td>
+
+                                <td class="nonce">{{ event.sequenceNumber }}</td>
                             </tr>
                         </tbody>
                     </div>
                     <div class="tbody">
                         <tbody>
                             <tr>
-                                <td>Created:</td>
+                                <td>Created at:</td>
                                 <td class="time">{{ format(event.initializedTimestamp * 1000) }}, {{
                                     $toDate(event.initializedTimestamp * 1000).replace(',', '') }}</td>
+                            </tr>
+                        </tbody>
+                    </div>
+                    <div class="tbody" v-if="event.status == 2">
+                        <tbody>
+                            <tr>
+                                <td>Delivered at:</td>
+                                <td class="time">{{ format(event.deliveredTimestamp * 1000) }}, {{
+                                    $toDate(event.deliveredTimestamp * 1000).replace(',', '') }}</td>
+                            </tr>
+                        </tbody>
+                    </div>
+                    <div class="tbody" v-if="event.status == 3">
+                        <tbody>
+                            <tr>
+                                <td>Failed at:</td>
+                                <td class="time">{{ format(event.failedTimestamp * 1000) }}, {{
+                                    $toDate(event.failedTimestamp * 1000).replace(',', '') }}</td>
                             </tr>
                         </tbody>
                     </div>
