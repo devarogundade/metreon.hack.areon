@@ -11,7 +11,7 @@
                             <p>{{ $t("header.docs") }}</p>
                         </div>
                     </a>
-                    <a target="_blank" href="https://github.com/devarogundade/metreon">
+                    <a target="_blank" href="https://github.com/devarogundade/metreon.hack.areon">
                         <div :class="'tab_item'">
                             <p>{{ $t("header.github") }}</p>
                         </div>

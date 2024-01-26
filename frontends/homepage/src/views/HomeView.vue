@@ -55,7 +55,10 @@
         </div>
 
         <div class="ecosystem_apps">
-
+          <iframe width="500" height="350" src="https://www.youtube.com/embed/NNtQ4uzqPx0" title="W3Link Demo"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
         </div>
       </div>
     </div>
@@ -254,7 +257,7 @@ import MouseIcon from '../components/icons/MouseIcon.vue';
   align-items: center;
   justify-content: center;
   padding: 200px 0;
-  gap: 270px;
+  gap: 240px;
 }
 
 .ecosystem_text {
@@ -305,6 +308,8 @@ import MouseIcon from '../components/icons/MouseIcon.vue';
 }
 
 .ecosystem_apps {
-  width: 412px;
+  width: 500px;
+  border-radius: 12px;
+  overflow: hidden;
 }
 </style>
