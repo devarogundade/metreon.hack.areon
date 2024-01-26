@@ -6,7 +6,7 @@
                     <MetreonLogo />
                 </div>
                 <div class="tabs">
-                    <a target="_blank" href="https://metreon.gitbook.io">
+                    <a target="_blank" href="https://metreon.gitbook.io/metreon-docs/">
                         <div :class="'tab_item'">
                             <p>{{ $t("header.docs") }}</p>
                         </div>
@@ -30,7 +30,7 @@
                     </a>
                 </div>
                 <div class="connection">
-                    <a href="https://metreon.gitbook.io" target="_blank">
+                    <a href="https://metreon.gitbook.io/metreon-docs/" target="_blank">
                         <div class="connection_action">
                             <p>{{ $t("header.startBuilding") }}</p>
                         </div>

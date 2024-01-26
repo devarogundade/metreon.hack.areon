@@ -6,7 +6,7 @@
                     <div class="toolbar_texts">
                         <h3>Make your dApps gasless.</h3>
                         <p>Fund your created smart contracts using MetreonPay to unlock gasless transaction for your users.
-                            <a target="_blank" href="https://metreon.gitbook.io">Learn more</a>
+                            <a target="_blank" href="https://metreon.gitbook.io/metreon-docs/">Learn more</a>
                         </p>
                     </div>
                     <div class="toolbar_stats">

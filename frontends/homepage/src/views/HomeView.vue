@@ -7,12 +7,12 @@
           <p class="desc">{{ $t("hero.description") }}</p>
 
           <div class="buttons">
-            <a href="https://docs.w3-link.site" target="_blank">
+            <a href="https://metreon.gitbook.io/metreon-docs/" target="_blank">
               <div class="button">{{ $t("hero.button1") }}</div>
             </a>
-            <a href="https://docs.w3-link.site/ecosystem-dapps" target="_blank">
+            <!-- <a href="" target="_blank">
               <div class="button">{{ $t("hero.button2") }}</div>
-            </a>
+            </a> -->
           </div>
         </div>
 
@@ -33,10 +33,30 @@
       <div class="features">
         <h3>{{ $t("features.titleA") }} <span>{{ $t("features.titleB") }}</span></h3>
         <p>{{ $t("features.description") }}</p>
-        <a href="https://beamre.w3-link.site" target="_blank">
+        <img src="/images/beamre.png" alt="">
+        <a href="https://beamre.netlify.app" target="_blank">
           <button>{{ $t("features.tryItOut") }}</button>
         </a>
-        <img src="/images/beamre.png" alt="">
+      </div>
+    </div>
+  </section>
+
+  <section class="ecosystem_container">
+    <div class="app_width">
+      <div class="ecosystem">
+        <div class="ecosystem_text">
+          <h3>Ecosystem</h3>
+
+          <p>Overview of applications comprising Metreon's infrastructural ecosystem.</p>
+
+          <a href="" target="_blank">
+            <button> Explore </button>
+          </a>
+        </div>
+
+        <div class="ecosystem_apps">
+
+        </div>
       </div>
     </div>
   </section>
@@ -122,11 +142,11 @@ import MouseIcon from '../components/icons/MouseIcon.vue';
   background: var(--primary-primary, #00A3FF);
 }
 
-.buttons a:last-child .button {
+/* .buttons a:last-child .button {
   color: var(--tx-normal, #EEF1F8);
   border: 2px solid var(--bg-lightest, #0C1A33);
   background: var(--bg-lighter, #091121);
-}
+} */
 
 .scroll {
   display: flex;
@@ -151,7 +171,6 @@ import MouseIcon from '../components/icons/MouseIcon.vue';
 /*  */
 
 .features_container {
-  /* background-image: url('/images/lines2.png'); */
   background-repeat: repeat;
   padding: 200px 0;
 }
@@ -200,9 +219,8 @@ import MouseIcon from '../components/icons/MouseIcon.vue';
   border: 1px solid var(--Stroke-BgLight, #182D40);
   background: var(--Background-BG-400, #0A1D2E);
 
-  width: 182px;
-  height: 46px;
-  border: none;
+  width: 285px;
+  height: 50px;
   color: #fff;
   text-align: center;
 
@@ -215,8 +233,78 @@ import MouseIcon from '../components/icons/MouseIcon.vue';
 }
 
 .features img {
-  margin-top: 100px;
+  margin-top: 60px;
+  margin-bottom: 100px;
   width: 1000px;
   height: 684px;
+}
+
+.ecosystem_container {
+  background-image: url('/images/lines.png');
+  background-repeat: repeat-y;
+  background-position: center center;
+  background-size: 900px;
+  background-color: rgba(10, 21, 31, 0.839);
+  display: flex;
+  justify-content: center;
+}
+
+.ecosystem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 200px 0;
+  gap: 270px;
+}
+
+.ecosystem_text {
+  width: 454px;
+}
+
+.ecosystem_text h3 {
+  color: var(--Text-Text-Normal, #FFF);
+  font-size: 34px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%;
+  /* 51px */
+}
+
+.ecosystem_text p {
+  color: var(--Text-Text-Dimmed, #787883);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  /* 24px */
+  letter-spacing: 0.32px;
+  margin-top: 30px;
+}
+
+.ecosystem_text button {
+  width: 180px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border: 1px solid var(--Stroke-BgLight, #182D40);
+  background: var(--Background-BG-400, #0A1D2E);
+
+  color: var(--Text-Text-Normal, #FFF);
+  text-align: center;
+
+  /* Text-14-Reg */
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+  /* 16.8px */
+  letter-spacing: 0.28px;
+  margin-top: 60px;
+}
+
+.ecosystem_apps {
+  width: 412px;
 }
 </style>
