@@ -49,8 +49,8 @@
 
           <p>Overview of applications comprising Metreon's infrastructural ecosystem.</p>
 
-          <a href="" target="_blank">
-            <button> Explore </button>
+          <a href="https://metreon.gitbook.io/metreon-docs/" target="_blank">
+            <button> Explore DApps </button>
           </a>
         </div>
 
