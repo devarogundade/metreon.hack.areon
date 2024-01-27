@@ -14,7 +14,8 @@ export async function bridgeEVM(fromChain, toChain, currency, amount) {
 
         const { transactionHash } = await beamre.methods.bridgeToken(
             toChain.id,
-            [{ tokenId: exactCurrency.address, amount: amount }]
+            [{ tokenId: exactCurrency.address, amount: amount }],
+            Utils.tokenPools()[fromChain.id]
         ).send({
             from: accounts[0],
             value: exactCurrency.isNative ? amount : 0

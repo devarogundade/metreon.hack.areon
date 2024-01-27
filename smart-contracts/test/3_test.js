@@ -21,34 +21,51 @@ contract('MetreonPay', async accounts => {
 
     //     console.log(bal);
     // });
+
 });
 
 contract('Beamre', async accounts => {
+    // it('Set Contract', async () => {
+    //     const beamre = await Beamre.deployed();
+
+    //     const trx = await beamre.setContract(97, "0xe668a3983Aba80D2aAF3787a17BBEEE62F71DE43");
+
+    //     console.log(trx.tx);
+    // });
+
+    // it('Set Contract', async () => {
+    //     const beamre = await Beamre.deployed();
+
+    //     const trx = await beamre.setContract(80001, "0x5Ad213b02Ee414C2EaBe004A61774207faC5113c");
+
+    //     console.log(trx.tx);
+    // });
+
     it('Set Contract', async () => {
         const beamre = await Beamre.deployed();
 
-        const trx = await beamre.setContract(97, "0xe668a3983Aba80D2aAF3787a17BBEEE62F71DE43");
+        const trx = await beamre.setContract(462, "0x14cB760D6c62bf96D60E4C09FeB8f6DccBA5D762");
 
         console.log(trx.tx);
     });
 
-    it('Token Approval', async () => {
-        const token = await MintableToken.at("0x6Ad70B09ab3e4aB416F6D48D3F77Fbc2b07f0C0e");
+    // it('Token Approval', async () => {
+    //     const token = await MintableToken.at("0x6Ad70B09ab3e4aB416F6D48D3F77Fbc2b07f0C0e");
 
-        const trx = await token.approve(Beamre.address, "5000000000000000000000000000");
+    //     const trx = await token.approve(Beamre.address, "5000000000000000000000000000");
 
-        console.log(trx.tx);
-    });
+    //     console.log(trx.tx);
+    // });
 
-    it('Token Bridge', async () => {
-        const beamre = await Beamre.deployed();
+    // it('Token Bridge', async () => {
+    //     const beamre = await Beamre.deployed();
 
-        const trx = await beamre.bridgeToken(97, [
-            { tokenId: "0x6Ad70B09ab3e4aB416F6D48D3F77Fbc2b07f0C0e", amount: "5000000000000000000" }
-        ], "0xe7D634e1C16ef28cc6e9ff3201499fDC288A963E");
+    //     const trx = await beamre.bridgeToken(97, [
+    //         { tokenId: "0x6Ad70B09ab3e4aB416F6D48D3F77Fbc2b07f0C0e", amount: "5000000000000000000" }
+    //     ], "0xe7D634e1C16ef28cc6e9ff3201499fDC288A963E");
 
-        console.log(trx.tx);
-    });
+    //     console.log(trx.tx);
+    // });
 
     // it("BNB Receive", async () => {
     //     const metreon = await Metreon.deployed();

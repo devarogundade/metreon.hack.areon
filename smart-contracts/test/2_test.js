@@ -9,9 +9,9 @@ const AreonTokens = {
 };
 
 const MumbaiTokens = {
-    'USDT': '',
-    'USDC': '',
-    'WAREA': '',
+    'USDT': '0x9252C5aC33132959954b7e783A1043394Dd1b083',
+    'USDC': '0x81297d0e83488A4eFC074041488bB4a9B5713a0E',
+    'WAREA': '0xe61C27B23970D90Bb6A0425498D41cC990B8F517',
     'MATIC': '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE'
 };
 

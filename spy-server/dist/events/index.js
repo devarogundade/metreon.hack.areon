@@ -24,6 +24,11 @@ class Index {
     constructor() { }
     listen() {
         this.startListening(chains_config_1.default.AreonTestnet);
+        fs_1.default.writeFileSync(`events/config${chains_config_1.default.AreonTestnet}.index.json`, `{
+                    "fromBlocks": {
+                        "${chains_config_1.default.AreonTestnet}": null
+                    }
+                }`);
     }
     startListening(chainId) {
         const job = new cron_1.CronJob('*/20 * * * * *', function () {

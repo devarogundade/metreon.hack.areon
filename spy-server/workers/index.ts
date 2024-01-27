@@ -67,9 +67,6 @@ class Worker {
 
         const metreon = new web3.eth.Contract(Metreon.abi, Config.metreonIds[message.toChainId]);
 
-        console.log(incomingMessage);
-
-
         const gas = await metreon.methods.postMessage(
             message.receiver, incomingMessage, tokenPool
         ).estimateGas({ from: signer.address });
@@ -102,7 +99,7 @@ class Worker {
             ]
         });
 
-        if (savedMessage?.status == Status.DELIVERED.toString()) {
+        if (savedMessage?.status == Status.DELIVERED.toString() || savedMessage?.status == Status.FAILED.toString()) {
             return;
         }
 

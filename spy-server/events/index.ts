@@ -15,6 +15,13 @@ class Index {
 
     listen() {
         this.startListening(Config.AreonTestnet as 462);
+
+        fs.writeFileSync(`events/config${Config.AreonTestnet}.index.json`,
+            `{
+                    "fromBlocks": {
+                        "${Config.AreonTestnet}": null
+                    }
+                }`);
     }
 
     private startListening(chainId: 80001 | 97 | 462) {

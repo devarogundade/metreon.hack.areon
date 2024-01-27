@@ -60,7 +60,6 @@ class Worker {
             };
             const tokenPool = chains_config_1.default.tokenPoolIds[message.toChainId];
             const metreon = new web3.eth.Contract(Metreon.abi, chains_config_1.default.metreonIds[message.toChainId]);
-            console.log(incomingMessage);
             const gas = yield metreon.methods.postMessage(message.receiver, incomingMessage, tokenPool).estimateGas({ from: signer.address });
             console.log('Gas: ', gas);
             const gasPrice = yield web3.eth.getGasPrice();
@@ -84,7 +83,7 @@ class Worker {
                     { messageId: message.messageId }
                 ]
             });
-            if ((savedMessage === null || savedMessage === void 0 ? void 0 : savedMessage.status) == status_1.Status.DELIVERED.toString()) {
+            if ((savedMessage === null || savedMessage === void 0 ? void 0 : savedMessage.status) == status_1.Status.DELIVERED.toString() || (savedMessage === null || savedMessage === void 0 ? void 0 : savedMessage.status) == status_1.Status.FAILED.toString()) {
                 return;
             }
             yield schemas_1.default.findOneAndUpdate({ messageId: message.messageId }, { $set: message }, {

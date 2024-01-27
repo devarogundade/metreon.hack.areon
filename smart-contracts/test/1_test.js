@@ -64,4 +64,34 @@ contract('MetreonConfig', async accounts => {
 
     //     console.log(trx.tx);
     // });
+
+    // ========= MATIC ========= //
+
+    // it('Set Fee MATIC Testnet', async () => {
+    //     const config = await MetreonConfig.deployed();
+
+    //     const trx = await config.setFee(462, '640000000000000');
+
+    //     console.log(trx.tx);
+    // });
+
+    // it('Set Supported Chains MATIC Testnet', async () => {
+    //     const config = await MetreonConfig.deployed();
+
+    //     const trx = await config.updateSupportedChains([462]);
+
+    //     console.log(trx.tx);
+    // });
+
+    // it('Set Supported Token MATIC Testnet', async () => {
+    //     const config = await MetreonConfig.deployed();
+
+    //     const trx = await config.updateSupportedTokens([
+    //         "0x9252C5aC33132959954b7e783A1043394Dd1b083",
+    //         "0x81297d0e83488A4eFC074041488bB4a9B5713a0E",
+    //         "0xe61C27B23970D90Bb6A0425498D41cC990B8F517"
+    //     ]);
+
+    //     console.log(trx.tx);
+    // });
 });

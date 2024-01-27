@@ -7,7 +7,7 @@
                         <p>Areon Network</p>
 
                         <div>
-                            <a href="https://sepoliafaucet.com/" target="_blank">Get TAREA
+                            <a href="https://docs.areon.network/testnet/faucet" target="_blank">Get TAREA
                                 <OutIcon />
                             </a>
                             <img src="/images/areon.png" alt="">
