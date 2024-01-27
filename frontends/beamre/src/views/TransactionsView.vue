@@ -29,7 +29,7 @@
                                 <tr>
                                     <td>
                                         <a target="_blank"
-                                            :href="`https://metreon-scan.netlify.app/messages/${transaction.messageId}`">
+                                            :href="`https://metreon-scan.netlify.app/${transaction.messageId}`">
                                             <div class="route">
                                                 <div class="images">
                                                     <img :src="$chain(transaction.fromChainId).image" alt="">
@@ -50,24 +50,41 @@
                                     </td>
 
                                     <td>
-                                        <div class="status"
-                                            v-if="transaction.status == 'PROCESSING' || transaction.status == 'DISPATCHED'">
+                                        <div class="status" v-if="transaction.status == 0">
+                                            <div class="dot processing_dot">
+                                                <SemanticYellow />
+                                            </div>
+                                            <p>Pending</p>
+                                        </div>
+                                        <div class="status" v-if="transaction.status == 1">
                                             <div class="dot processing_dot">
                                                 <SemanticYellow />
                                             </div>
                                             <p>Processing</p>
                                         </div>
-                                        <div class="status" v-if="transaction.status == 'DELIVERED'">
+                                        <div class="status" v-if="transaction.status == 2">
                                             <div class="dot processing_dot">
                                                 <SemanticGreen />
                                             </div>
                                             <p>Successful</p>
                                         </div>
-                                        <div class="status" v-if="transaction.status == 'FAILED'">
+                                        <div class="status" v-if="transaction.status == 3">
                                             <div class="dot processing_dot">
                                                 <SemanticRed />
                                             </div>
                                             <p>Failed</p>
+                                        </div>
+                                        <div class="status" v-if="transaction.status == 4">
+                                            <div class="dot processing_dot">
+                                                <SemanticRed />
+                                            </div>
+                                            <p>Will Retry</p>
+                                        </div>
+                                        <div class="status" v-if="transaction.status == 5">
+                                            <div class="dot processing_dot">
+                                                <SemanticYellow />
+                                            </div>
+                                            <p>Retrying</p>
                                         </div>
                                     </td>
 
@@ -78,7 +95,7 @@
                                                 <span>{{ $currencyAddress(transaction.tokens[0].tokenId).symbol }}</span>
                                             </p>
                                             <a target="_blank"
-                                                :href="`${$chain(transaction.fromChainId).scan}/tx/${transaction.fromHash}`">
+                                                :href="`${$chain(transaction.fromChainId).scan}/tx/${transaction.fromTrxHash}`">
                                                 <div class="chain">
                                                     <img :src="$chain(transaction.fromChainId).image" alt="">
                                                     <p>{{ $chain(transaction.fromChainId).name }}</p>
@@ -94,7 +111,15 @@
                                                 {{ $toMoney($fromWei(transaction.tokens[0].amount)) }}
                                                 <span>{{ $currencyAddress(transaction.tokens[0].tokenId).symbol }}</span>
                                             </p>
-                                            <div class="chain">
+                                            <a target="_blank" v-if="transaction.status == 2"
+                                                :href="`${$chain(transaction.toChainId).scan}/tx/${transaction.toTrxHash}`">
+                                                <div class="chain">
+                                                    <img :src="$chain(transaction.toChainId).image" alt="">
+                                                    <p>{{ $chain(transaction.toChainId).name }}</p>
+                                                    <OutIcon />
+                                                </div>
+                                            </a>
+                                            <div class="chain" v-else>
                                                 <img :src="$chain(transaction.toChainId).image" alt="">
                                                 <p>{{ $chain(transaction.toChainId).name }}</p>
                                                 <OutIcon />
@@ -116,13 +141,13 @@
                         </div>
 
                         <div class="pages">
-                            <div v-for="index in totalPages" @click="getMessages(index)"
+                            <div v-for="index in lastPage" @click="getMessages(index)"
                                 :class="currentPage == index ? 'page page_active' : 'page'" :key="index">
                                 {{ index }}
                             </div>
                         </div>
 
-                        <div class="next" @click="next" :style="{ opacity: currentPage == totalPages ? '0.3' : '1' }">
+                        <div class="next" @click="next" :style="{ opacity: currentPage == lastPage ? '0.3' : '1' }">
                             <p>Next</p>
                             <ArrowRightIcon />
                         </div>
@@ -154,7 +179,7 @@ export default {
         return {
             transactions: [],
             currentPage: 1,
-            totalPages: 1,
+            lastPage: 1,
             loading: false
         };
     },
@@ -165,7 +190,7 @@ export default {
             }
         },
         next: function () {
-            if (this.currentPage < this.totalPages) {
+            if (this.currentPage < this.lastPage) {
                 this.getMessages(Number(this.currentPage) + 1);
             }
         },
@@ -174,8 +199,8 @@ export default {
                 if (this.$store.state.account != '') {
                     // eslint-disable-next-line no-undef
                     const response = await fetchMessages(this.$store.state.account, page);
-                    this.transactions = response.data;
-                    this.totalPages = response.totalPages;
+                    this.transactions = response.data.data;
+                    this.lastPage = response.data.lastPage;
                     this.currentPage = page;
                 }
             } catch (error) {

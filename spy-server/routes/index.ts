@@ -23,11 +23,16 @@ class Route {
         });
 
         router.get('/messages', async (req: Request, res: Response) => {
-            const { page = 1, take = 10 } = req.query;
+            const { page = 1, take = 10, query = null } = req.query;
 
-            const query = req.body;
+            let q = {};
+            if (query) {
+                q = {
+                    payload: query
+                };
+            }
 
-            const result = await controller.allMessages(Number(page), Number(take), query);
+            const result = await controller.allMessages(Number(page), Number(take), q);
             res.status(result.status).send(result);
         });
 

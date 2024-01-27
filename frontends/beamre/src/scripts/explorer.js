@@ -1,10 +1,13 @@
 import axios from 'axios';
+import Web3 from 'web3';
 
 const endpoint = 'https://metreonhack.azurewebsites.net';
 
 export async function fetchMessages(address, page) {
     try {
-        const response = await axios.get(`${endpoint}/messages?page=${page}&payload=${address}`);
+        const web3 = new Web3();
+        const paddedAddress = web3.utils.padLeft(address, 64);
+        const response = await axios.get(`${endpoint}/messages?page=${page}&query=${paddedAddress}`);
         return response.data;
     } catch (error) {
         console.error(error);
