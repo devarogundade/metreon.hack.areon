@@ -3,7 +3,7 @@ const Config = {
     BnbTestnet: 97,
     AreonTestnet: 462,
     metreonIds: {
-        80001: '',
+        80001: '0xaAAb8EE63b5aad589d834261b1dbfac59d681c5D',
         97: '0x2810127091972FccEaCdA109876268Cf47D48935',
         462: '0x7d2B716b9728C2cb03d44aB2e1b7f83ddb24e6c1'
     },
@@ -16,7 +16,7 @@ const Config = {
         462: 'wss://testnet-ws.areon.network'
     },
     tokenPoolIds: {
-        80001: '',
+        80001: '0xcA2bE183D28FA60CEEf867f1C79d8eF1E0F2188E',
         97: '0xe7D634e1C16ef28cc6e9ff3201499fDC288A963E',
         462: '0x77dC42C576a9f2BEA54cAf996333C87b62aac9F1'
     }

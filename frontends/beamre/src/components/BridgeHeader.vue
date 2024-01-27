@@ -3,7 +3,7 @@
         <div class="app_width">
             <header>
                 <div class="logo">
-                    <SupernovaLogo />
+                    <BeamreLogo />
                 </div>
                 <div class="tabs">
                     <RouterLink to="/">
@@ -55,7 +55,7 @@
 </template>
 
 <script setup>
-import SupernovaLogo from '../components/icons/SupernovaLogo.vue';
+import BeamreLogo from '../components/icons/BeamreLogo.vue';
 import MetaMaskIcon from '../components/icons/MetaMaskIcon.vue';
 import SemanticGreen from '../components/icons/SemanticGreen.vue';
 import WalletDownIcon from '../components/icons/WalletDownIcon.vue';

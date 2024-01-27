@@ -137,7 +137,7 @@
                         <tbody>
                             <tr>
                                 <td>Tokens transferred:</td>
-                                <td v-for="token in event.tokens">
+                                <td v-for="token, index in event.tokens" :key="index">
                                     <div class="token">
                                         <div class="img"><img :src="$currencyAddress(token.tokenId).image" alt=""></div>
                                         <p>{{ $fromWei(token.amount) }} <span>{{ $currencyAddress(token.tokenId).symbol

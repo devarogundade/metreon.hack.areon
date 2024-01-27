@@ -26,29 +26,29 @@ contract('MetreonConfig', async accounts => {
 
     // ========= Areon ========= //
 
-    // it('Set Chain Token Ids Areon Testnet', async () => {
-    //     const config = await MetreonConfig.deployed();
+    it('Set Chain Token Ids Areon Testnet', async () => {
+        // const config = await MetreonConfig.deployed();
 
-    //     const trx = await config.setChainTokenId(97, BscTokens.USDT, AreonTokens.USDT);
-    //     const trx1 = await config.setChainTokenId(97, BscTokens.USDC, AreonTokens.USDC);
-    //     const trx2 = await config.setChainTokenId(97, BscTokens.BNB, AreonTokens.WBNB);
-    //     const trx3 = await config.setChainTokenId(97, BscTokens.WAREA, AreonTokens.AREA);
+        //     const trx = await config.setChainTokenId(97, BscTokens.USDT, AreonTokens.USDT);
+        //     const trx1 = await config.setChainTokenId(97, BscTokens.USDC, AreonTokens.USDC);
+        //     const trx2 = await config.setChainTokenId(97, BscTokens.BNB, AreonTokens.WBNB);
+        //     const trx3 = await config.setChainTokenId(97, BscTokens.WAREA, AreonTokens.AREA);
 
-    //     // const trx4 = await config.setChainTokenId(80001, MumbaiTokens.USDT, AreonTokens.USDT);
-    //     // const trx5 = await config.setChainTokenId(80001, MumbaiTokens.USDC, AreonTokens.USDC);
-    //     // const trx6 = await config.setChainTokenId(80001, MumbaiTokens.MATIC, AreonTokens.WMATIC);
-    //     // const trx7 = await config.setChainTokenId(80001, MumbaiTokens.WAREA, AreonTokens.AREA);
+        // const trx4 = await config.setChainTokenId(80001, MumbaiTokens.USDT, AreonTokens.USDT);
+        // const trx5 = await config.setChainTokenId(80001, MumbaiTokens.USDC, AreonTokens.USDC);
+        // const trx6 = await config.setChainTokenId(80001, MumbaiTokens.MATIC, AreonTokens.WMATIC);
+        // const trx7 = await config.setChainTokenId(80001, MumbaiTokens.WAREA, AreonTokens.AREA);
 
-    //     console.log(trx.tx);
-    //     console.log(trx1.tx);
-    //     console.log(trx2.tx);
-    //     console.log(trx3.tx);
+        //     console.log(trx.tx);
+        //     console.log(trx1.tx);
+        //     console.log(trx2.tx);
+        //     console.log(trx3.tx);
 
-    //     // console.log(trx4.tx);
-    //     // console.log(trx5.tx);
-    //     // console.log(trx6.tx);
-    //     // console.log(trx7.tx);
-    // });
+        // console.log(trx4.tx);
+        // console.log(trx5.tx);
+        // console.log(trx6.tx);
+        // console.log(trx7.tx);
+    });
 
     // Matic //
 

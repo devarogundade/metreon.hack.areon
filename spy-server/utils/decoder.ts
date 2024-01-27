@@ -1,6 +1,7 @@
 import Web3 from 'web3';
 import { Message } from '../models/message';
 import { Status } from '../models/status';
+import { Token } from '../models/token';
 
 class Decoder {
     decodeLog(format: string[], value: string) {
@@ -17,6 +18,12 @@ class Decoder {
 
     toDisptachModel(event: string, data: any, transactionHash: string, fromChainId: 80001 | 97 | 462): Message | null {
         if (event == 'sendMessage') {
+            const tokens: Token[] = [];
+
+            data[7].forEach((token: any) => {
+                tokens.push({ tokenId: token[0], amount: token[1] });
+            });
+
             return {
                 messageId: data[0],
                 status: Status.INITIATED,
@@ -27,7 +34,7 @@ class Decoder {
                 toChainId: data[4],
                 sender: data[5],
                 receiver: data[6],
-                tokens: data[7],
+                tokens: tokens,
                 payMaster: data[8],
                 payload: data[9],
                 fromTrxHash: transactionHash

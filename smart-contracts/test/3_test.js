@@ -4,15 +4,15 @@ const Metreon = artifacts.require('Metreon');
 const MintableToken = artifacts.require('MintableToken');
 
 contract('MetreonPay', async accounts => {
-    it('Pay Contract', async () => {
-        const pay = await MetreonPay.deployed();
+    // it('Pay Contract', async () => {
+    //     const pay = await MetreonPay.deployed();
 
-        const trx = await pay.deposit(Beamre.address, {
-            value: "50000000000000000"
-        });
+    //     const trx = await pay.deposit(Beamre.address, {
+    //         value: "50000000000000000"
+    //     });
 
-        console.log(trx.tx);
-    });
+    //     console.log(trx.tx);
+    // });
 
     // it('Pay Contract', async () => {
     //     const pay = await MetreonPay.deployed();
@@ -41,13 +41,13 @@ contract('Beamre', async accounts => {
     //     console.log(trx.tx);
     // });
 
-    it('Set Contract', async () => {
-        const beamre = await Beamre.deployed();
+    // it('Set Contract', async () => {
+    //     const beamre = await Beamre.deployed();
 
-        const trx = await beamre.setContract(462, "0x14cB760D6c62bf96D60E4C09FeB8f6DccBA5D762");
+    //     const trx = await beamre.setContract(462, "0x14cB760D6c62bf96D60E4C09FeB8f6DccBA5D762");
 
-        console.log(trx.tx);
-    });
+    //     console.log(trx.tx);
+    // });
 
     // it('Token Approval', async () => {
     //     const token = await MintableToken.at("0x6Ad70B09ab3e4aB416F6D48D3F77Fbc2b07f0C0e");
