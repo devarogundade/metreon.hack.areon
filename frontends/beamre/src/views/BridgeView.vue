@@ -43,7 +43,9 @@
 
                         <div class="from_input">
                             <div class="est" v-if="interchange">Est.</div>
-                            <div class="max" v-else>Max</div>
+                            <div class="max" v-else
+                                @click="$fromWei(bridge.balance0) > 100 ? bridge.amount = 100 : bridge.amount = balance0">
+                                Max</div>
                             <input type="number" v-model="bridge.amount" placeholder="0.00">
                             <div class="currency" @click="coining = !coining">
                                 <img :src="bridge.currency.image" alt="">
@@ -53,7 +55,7 @@
                                 <!-- dropdown -->
                                 <div class="inactive_from_currencies" v-if="coining && !interchange">
                                     <div class="currency" v-for="currency, index in $currenciesCN(bridge.from.chain.id)"
-                                        @click="bridge.currency = currency" :key="index">
+                                        @click="changeCurrency(currency)" :key="index">
                                         <img :src="currency.image" alt="">
                                         <p>{{ currency.name }}</p>
                                     </div>
@@ -69,7 +71,7 @@
                     </div>
 
                     <div class="inter_change" @click="interchange = !interchange">
-                        <InterChangeIcon :style="{ transform: interchange ? 'rotate(180deg)' : '' }" />
+                        <div class="inter_change_border"> </div>
                         <SwapIcon :style="{ transform: interchange ? 'rotate(180deg)' : '' }" />
                     </div>
 
@@ -94,7 +96,9 @@
 
                         <div class="to_input">
                             <div class="est" v-if="!interchange">Est.</div>
-                            <div class="max" v-else>Max</div>
+                            <div class="max" v-else
+                                @click="$fromWei(bridge.balance1) > 100 ? bridge.amount = 100 : bridge.amount = balance1">
+                                Max</div>
                             <input type="number" v-model="bridge.amount" placeholder="0.00">
                             <div class="currency" @click="coining = !coining">
                                 <img :src="$exactCurrency(bridge.to.chain.id, bridge.currency.code).image" alt="">
@@ -104,7 +108,7 @@
                                 <!-- dropdown -->
                                 <div class="inactive_from_currencies" v-if="coining && interchange">
                                     <div class="currency" v-for="currency, index in $currenciesCN(bridge.from.chain.id)"
-                                        @click="bridge.currency = currency" :key="index">
+                                        @click="changeCurrency(currency)" :key="index">
                                         <img :src="currency.image" alt="">
                                         <p>{{ currency.name }}</p>
                                     </div>
@@ -145,7 +149,6 @@ import RefreshIcon from '@/components/icons/RefreshIcon.vue';
 import PrimaryButton from '@/components/PrimaryButton.vue';
 import SemanticGreen from '@/components/icons/SemanticGreen.vue';
 import SemanticRed from '@/components/icons/SemanticRed.vue';
-import InterChangeIcon from '@/components/icons/InterChangeIcon.vue';
 import SwapIcon from '@/components/icons/SwapIcon.vue';
 import TimeIcon from '@/components/icons/TimeIcon.vue';
 </script>
@@ -244,6 +247,18 @@ export default {
             );
         },
 
+        changeCurrency: function (newCurrency) {
+            if (newCurrency.isPending) {
+                notify.push({
+                    'title': `Not much liquidity of ${newCurrency.symbol} in the pools, Please try USDT or USDC`,
+                    'description': `Happy bridging!`,
+                    'category': 'error'
+                });
+                return;
+            }
+            this.bridge.currency = newCurrency;
+        },
+
         approve: async function () {
             if (this.approving) return;
             this.approving = true;
@@ -283,7 +298,7 @@ export default {
                 return;
             }
 
-            if (this.bridge.amount > '10') {
+            if (this.bridge.amount > '100') {
                 notify.push({
                     'title': `Not much liquidity of ${this.bridge.currency.symbol} in the pools`,
                     'description': `Use amount <= 10 ${this.bridge.currency.symbol} Instead!`,
@@ -412,11 +427,11 @@ export default {
     padding: 9px;
     align-items: flex-start;
     gap: 10px;
-    border-radius: 8px;
-    background: var(--bg-lighter, #0C171A);
     width: 38px;
     height: 38px;
     cursor: pointer;
+    border-radius: 12px;
+    border: 1px solid var(--Stroke-BgLight, #182D40);
 }
 
 .form_rect,
@@ -571,6 +586,7 @@ export default {
     line-height: 120%;
     /* 16.8px */
     letter-spacing: 0.28px;
+    cursor: pointer;
 }
 
 .est {
@@ -677,6 +693,16 @@ export default {
     cursor: pointer;
     user-select: none;
     position: relative;
+}
+
+.inter_change_border {
+    border-radius: 12px;
+    border: 1px solid #182D40;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
 }
 
 .inter_change svg:last-child {
