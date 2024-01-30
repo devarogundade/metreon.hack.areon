@@ -55,8 +55,8 @@
         </div>
 
         <div class="ecosystem_apps">
-          <iframe width="500" height="350" src="https://www.youtube.com/embed/NNtQ4uzqPx0" title="W3Link Demo"
-            frameborder="0"
+          <iframe width="500" height="350" src="https://www.youtube.com/embed/u0YFXlCVr4Q"
+            title="Code AREA: A virtual hackathon for $500,000" frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen></iframe>
         </div>
