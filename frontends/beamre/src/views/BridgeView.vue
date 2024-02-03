@@ -301,7 +301,7 @@ export default {
             if (this.bridge.amount > '100') {
                 notify.push({
                     'title': `Not much liquidity of ${this.bridge.currency.symbol} in the pools`,
-                    'description': `Use amount <= 10 ${this.bridge.currency.symbol} Instead!`,
+                    'description': `Use amount <= 100 ${this.bridge.currency.symbol} Instead!`,
                     'category': 'error'
                 });
                 return;
