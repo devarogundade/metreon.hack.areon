@@ -5,7 +5,7 @@
                 <div class="bridge_rect">
                     <div class="bridge_rect_toolbar">
                         <p>Bridge</p>
-                        <RefreshIcon @click="refreshAllowance(); refreshBalance()" />
+                        <RefreshIcon @click="refresh" />
                     </div>
 
                     <div class="form_rect" :style="{ transform: interchange ? 'translateY(275px)' : '' }">
@@ -216,6 +216,17 @@ export default {
             this.$store.commit('setAccount', result.data);
         },
 
+        refresh: function () {
+            this.refreshAllowance();
+            this.refreshBalance();
+
+            notify.push({
+                'title': `Refreshing...`,
+                'description': `Your balance and allowances will be updated!.`,
+                'category': 'success'
+            });
+        },
+
         refreshBalance: async function () {
             if (this.$store.state.account != '') {
                 this.bridge.balance0 = await ercBalance(
@@ -286,6 +297,7 @@ export default {
 
             this.approving = false;
         },
+
         useBridge: async function () {
             if (this.bridging) return;
 
