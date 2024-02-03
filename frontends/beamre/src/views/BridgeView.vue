@@ -123,7 +123,7 @@
                     </div>
 
                     <div class="view_route">
-                        <PrimaryButton v-if="allowance < bridge.amount" :progress="approving"
+                        <PrimaryButton v-if="allowance < $toWei(bridge.amount)" :progress="approving"
                             :text="'Approve ' + bridge.currency.symbol" @click="approve" />
                         <PrimaryButton v-else :progress="bridging || approving" :text="'Bridge'" @click="useBridge" />
                     </div>
